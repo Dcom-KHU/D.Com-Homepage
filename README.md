@@ -15,6 +15,7 @@
 - **금요일 저녁 9시** 온라인 회의가 가능 하신분!
 - `Django`, `Flask` 등 Python 기반 Backend에 능통 하신분!
 - `React.js`, `Vue.js` 등 JavaScript Framework에 능통 하신분!
+- (선택) `Docker`, `nginx` 와 같은 서버 가상화, 웹 서버 배포에 능통 하신분!
 - (특히 중요) **열정이 가득 하신 분!**
 
 ## 문의사항
