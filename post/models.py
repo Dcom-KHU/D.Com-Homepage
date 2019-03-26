@@ -48,7 +48,20 @@ class PostStudy(models.Model):
     startDate = models.DateField('date study started')
     endDate = models.DateField('date study ended')
 
+
 class PostStudyMember(models.Model):
     studyIdx = models.ForeignKey(PostStudy, on_delete=models.CASCADE)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=10)
+
+
+class PostNotice(models.Model):
+    title = models.CharField(max_length=50)
+    content = models.CharField(max_length=1000)
+    writer = models.CharField(max_length=50)
+    parent = models.CharField(max_length=20, default=None)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
+    hit = models.IntegerField(default=0)
+    writedAt = models.CharField(max_length=20)
+    link = models.CharField(max_length=50)
+    tag = models.CharField(max_length=10)
