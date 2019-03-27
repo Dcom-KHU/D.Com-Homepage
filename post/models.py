@@ -1,11 +1,12 @@
 from django.db import models
+from ckeditor_uploader.fields import RichTextUploadingField
 from user.models import User
 # Create your models here.
 
 
 class PostFree(models.Model):
     title = models.CharField(max_length=50)
-    content = models.CharField(max_length=1000)
+    content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.CharField(max_length=20, default=None)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -16,7 +17,7 @@ class PostFree(models.Model):
 
 class PostAlbum(models.Model):
     title = models.CharField(max_length=50)
-    content = models.CharField(max_length=1000)
+    content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.CharField(max_length=20, default=None)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -27,7 +28,7 @@ class PostAlbum(models.Model):
 
 class PostJokbo(models.Model):
     title = models.CharField(max_length=50)
-    content = models.CharField(max_length=1000)
+    content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.CharField(max_length=20, default=None)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -38,7 +39,7 @@ class PostJokbo(models.Model):
 
 class PostStudy(models.Model):
     title = models.CharField(max_length=50)
-    content = models.CharField(max_length=1000)
+    content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.CharField(max_length=20, default=None)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -57,7 +58,7 @@ class PostStudyMember(models.Model):
 
 class PostNotice(models.Model):
     title = models.CharField(max_length=50)
-    content = models.CharField(max_length=1000)
+    content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.CharField(max_length=20, default=None)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)

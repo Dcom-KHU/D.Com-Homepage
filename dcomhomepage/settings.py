@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'file.apps.FileConfig',
     'post.apps.PostConfig',
-    'info.apps.InfoConfig'
+    'info.apps.InfoConfig',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE = [
@@ -125,3 +127,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+CKEDITOR_UPLOAD_PATH = '/uploads/'
+CKEDITOR_FILENAME_GENERATOR = 'dcomhomepage.utils.getfilename'

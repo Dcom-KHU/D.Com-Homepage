@@ -1,17 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
-class User(models.Model):
-    name = models.CharField(max_length=10)
-    email = models.CharField(max_length=30)
-    password = models.CharField(max_length=20)
-    stuNo = models.IntegerField(default=0)
-    phoneNo = models.IntegerField(default=0)
-    lastVisited = models.DateTimeField('date last visited')
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    stuNo = models.CharField(max_length=3)
+    github = models.URLField()
     isVerified = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return '{} {}{}'.format(self.stuNo, self.user.first_name, self.user.last_name)
+
 
 
 
