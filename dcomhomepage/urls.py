@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from dcomhomepage import views
 
 urlpatterns = [
+    path('', views.index),
     path('admin/', admin.site.urls),
     path('board/', include('board.urls')),
     path('file/', include('file.urls')),
