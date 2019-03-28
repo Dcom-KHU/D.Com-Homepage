@@ -8,47 +8,55 @@ class PostFree(models.Model):
     title = models.CharField(max_length=50)
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
-    parent = models.ForeignKey("self", on_delete=models.CASCADE)  # 자기 자신 가르킴
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     hit = models.IntegerField(default=0)
-    writedAt = models.CharField(max_length=20)
-    link = models.CharField(max_length=50)
+    writedAt = models.DateTimeField(auto_now_add=True)
+    link = models.CharField(max_length=50, default='', blank=True)
 
 
 class PostAlbum(models.Model):
     title = models.CharField(max_length=50)
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
-    parent = models.ForeignKey("self", on_delete=models.CASCADE)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     hit = models.IntegerField(default=0)
-    writedAt = models.CharField(max_length=20)
-    link = models.CharField(max_length=50)
+    writedAt = models.DateTimeField(auto_now_add=True)
+    link = models.CharField(max_length=50, default='', blank=True)
 
 
 class PostJokbo(models.Model):
     title = models.CharField(max_length=50)
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
-    parent = models.ForeignKey("self", on_delete=models.CASCADE)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     hit = models.IntegerField(default=0)
-    writedAt = models.CharField(max_length=20)
-    link = models.CharField(max_length=50)
+    writedAt = models.DateTimeField(auto_now_add=True)
+    link = models.CharField(max_length=50, default='', blank=True)
 
 
 class PostStudy(models.Model):
+    TAGS = (
+        ('교과', '교과'),
+        ('데이터', '데이터'),
+        ('프론트', '프론트'),
+        ('백', '백'),
+        ('기타', '기타')
+    )
+
     title = models.CharField(max_length=50)
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
-    parent = models.ForeignKey("self", on_delete=models.CASCADE)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     hit = models.IntegerField(default=0)
-    writedAt = models.CharField(max_length=20)
-    link = models.CharField(max_length=50)
+    writedAt = models.DateTimeField(auto_now_add=True)
+    link = models.CharField(max_length=50, default='', blank=True)
     startDate = models.DateField('date study started')
     endDate = models.DateField('date study ended')
-    tag = models.CharField(max_length=10)
+    tag = models.CharField(max_length=10, choices=TAGS, default='공지')
 
 
 class PostStudyMember(models.Model):
