@@ -12,22 +12,22 @@ def makefilename(instance, filename):
 class FileFree(models.Model):
     boardId = models.ForeignKey(Board, on_delete=models.CASCADE)
     postIdx = models.ForeignKey(PostFree, on_delete=models.CASCADE)
-    file = models.FileField(upload_to=makefilename)
+    file = models.FileField(upload_to=makefilename, null=True)
 
 
 class FileAlbum(models.Model):
     boardId = models.ForeignKey(Board, on_delete=models.CASCADE)
     postIdx = models.ForeignKey(PostAlbum, on_delete=models.CASCADE)
-    file = models.FileField(upload_to=makefilename)
+    file = models.FileField(upload_to=makefilename, null=True)
 
 
 class FileJokbo(models.Model):
     boardId = models.ForeignKey(Board, on_delete=models.CASCADE)
     postIdx = models.ForeignKey(PostJokbo, on_delete=models.CASCADE)
-    file = models.FileField(upload_to=makefilename)
+    file = models.FileField(upload_to=makefilename, null=True)
 
 
 class FileStudy(models.Model):
     boardId = models.ForeignKey(Board, on_delete=models.CASCADE)
     postIdx = models.ForeignKey(PostStudy, on_delete=models.CASCADE)
-    file = models.FileField(upload_to=makefilename)
+    file = models.FileField(upload_to=makefilename, null=True)
