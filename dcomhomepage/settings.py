@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost']
 
+LOGIN_URL = '/user/signin/'
 
 # Application definition
 

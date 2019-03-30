@@ -21,8 +21,8 @@ from dcomhomepage import views
 
 
 urlpatterns = [
-    path('', views.index),
-    path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
+    path('admin/', admin.site.urls, name='admin'),
     path('board/', include('board.urls'), name='board'),
     path('file/', include('file.urls'), name='file'),
     path('info/', include('info.urls'), name='info'),
