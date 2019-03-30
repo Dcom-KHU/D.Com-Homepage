@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in - D.Com</title>
+</head>
+<body>
+    <h1>{{ message }}</h1>
+    <form action="./?next={{ next_url }}" method="post">
+        {% csrf_token %}
+        <p>아이디 : <input type="text" name="userId"></p>
+        <p>비밀 번호 : <input type="password" name="password"></p>
+        <input type="submit">
+    </form>
+</body>
+</html>
