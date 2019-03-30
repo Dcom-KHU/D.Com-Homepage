@@ -23,12 +23,13 @@ from dcomhomepage import views
 urlpatterns = [
     path('', views.index),
     path('admin/', admin.site.urls),
-    path('board/', include('board.urls')),
-    path('file/', include('file.urls')),
-    path('info/', include('info.urls')),
-    path('post/', include('post.urls')),
-    path('study/', include('study.urls')),
-    path('user/', include('user.urls')),
+    path('board/', include('board.urls'), name='board'),
+    path('file/', include('file.urls'), name='file'),
+    path('info/', include('info.urls'), name='info'),
+    path('post/', include('post.urls'), name='post'),
+    path('study/', include('study.urls'), name='study'),
+    path('user/', include('user.urls'), name='user'),
+    path('api/', include('api.urls'), name='api'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
