@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up - D.Com</title>
+</head>
+<body>
+    <h1>{{ message }}</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>
+            아이디 : <input type="text" name="userId">
+        </p>
+        <p>
+            비밀 번호: <input type="password" name="password">
+        </p>
+        <p>
+            성 : <input type="text" name="first_name">
+        </p>
+        <p>
+            이름 : <input type="text" name="last_name">
+        </p>
+        <p>
+            이메일 : <input type="text" name="email">
+        </p>
+        <p>
+            학번 : <input type="text" name="stuNo">
+        </p>
+        <p>
+            전화번호 : <input type="text" name="phoneNum">
+        </p>
+        <p>
+            GitHub : <input type="text" name="github">
+        </p>
+        <input type="submit">
+    </form>
+    
+</body>
+</html>
