@@ -7,6 +7,8 @@ urlpatterns = [
     path('logout/', views.MyLogout, name='logout'),
     path('list/<int:page>', views.lists, name='lists'),
     path('<int:id>/', views.info, name='info'),
-    path('verify/', views.verify, name='verify'),
-    path('welcome/', views.welcome, name='welcome')
+    path('edit/', views.edit, name='verify'),
+    path('welcome/', views.welcome, name='welcome'),
+    path('changePassword/', views.changePassword, name='change_password'),
+    path('verify/<int:id>', views.verify, name='verify')
 ]

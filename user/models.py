@@ -6,7 +6,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     stuNo = models.CharField(max_length=3)
     phoneNum = models.CharField(max_length=20, default='010-0000-0000')
-    github = models.URLField()
+    github = models.URLField(blank=True)
     isVerified = models.BooleanField(default=False)
 
     def __str__(self):
