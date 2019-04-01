@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ name }}은 잘생겼다!</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <h1>{{ name }}은 잘생겼다!</h1>
+    <ul>
+        {% for post in posts %}
+        <li>{{ post.tag }} / {{ post.title }} / {{ post.writer }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

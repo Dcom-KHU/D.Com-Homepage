@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List - D.Com</title>
+</head>
+<body>
+    <ul>
+        {% for profile in queryset %}
+            <li>{{ profile }}</li>
+            {% if not profile.isVerified %}
+                정회원 추가해 주세용 ><
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <p>
+        {{ pageNum }}
+    </p>
+</body>
+</html>

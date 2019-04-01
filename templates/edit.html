@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>{{ message }}</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>
+            아이디 : {{ request.user.username }}
+        </p>
+        <p>
+            학번 : {{ profile.stuNo }}
+        </p>
+        <p>
+            성 : {{ request.user.first_name }}
+        </p>
+        <p>
+            이름 : {{ request.user.last_name }}
+        </p>
+        <p>
+            현재 비밀번호 입력 : <input type="password" name="password">
+        </p>
+        <p>
+            이메일 : <input type="text" name="email" value={{request.user.email}}>
+        </p>
+
+        <p>
+            전화번호 : <input type="text" name="phoneNum" value="{{ profile.phoneNum }}">
+        </p>
+        <p>
+            GitHub : <input type="url" name="github" value="{{ profile.github }}">
+        </p>
+        <input type="submit">
+    </form>
+</body>
+</html>
