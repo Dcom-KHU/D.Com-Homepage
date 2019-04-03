@@ -21,7 +21,13 @@
         내용 : {{ post.content|safe }}
     </p>
     <p>
-        댓글 :
+        댓글:
+        <ul>
+            {% for i in comments %}
+                <li>작성자 : {{ i.writer }}</li>
+                <p>내용 : {{ i.content|safe }}</p>
+            {% endfor %}
+        </ul>
     </p>
 </body>
 </html>

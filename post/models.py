@@ -5,11 +5,11 @@ from user.models import User
 
 
 class PostFree(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
@@ -17,11 +17,11 @@ class PostFree(models.Model):
 
 
 class PostAlbum(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
@@ -29,11 +29,11 @@ class PostAlbum(models.Model):
 
 
 class PostJokbo(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
@@ -49,11 +49,11 @@ class PostStudy(models.Model):
         ('기타', '기타')
     )
 
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
@@ -80,11 +80,11 @@ class PostNotice(models.Model):
 
     # blank=True : Form 사용 시 입력 안해도 오류 X
     # null=True : Foreign Key가 null 값을 가져도 되게 함
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
