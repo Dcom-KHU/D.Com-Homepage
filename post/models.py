@@ -62,6 +62,9 @@ class PostStudy(models.Model):
     tag = models.CharField(max_length=10, choices=TAGS, default='공지')
     depth = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.writer + ': ' + self.title
+
 
 class PostStudyMember(models.Model):
     studyIdx = models.ForeignKey(PostStudy, on_delete=models.CASCADE)

@@ -48,7 +48,6 @@ def welcome(request):
         return render(request, "congratuation.html")
 
 
-
 def signin(request):
     if request.user.is_authenticated:
         raise PermissionDenied
@@ -81,13 +80,11 @@ def signin(request):
             })
 
 
-
 def MyLogout(request):
     if request.user.is_authenticated:
         logout(request)
 
     return redirect("/")
-
 
 
 def lists(request, page=1):
@@ -165,7 +162,6 @@ def verify(request, id):
             }, status=500)
     else:
         raise PermissionDenied
-
 
 
 @login_required

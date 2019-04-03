@@ -4,7 +4,7 @@ from post.models import PostNotice
 
 def index(request):
     name = '오윤석'
-    posts = PostNotice.objects.all()
+    posts = PostNotice.objects.filter(parent=None).order_by('-id')
     return render(request, 'index.html', {'name': name, 'posts': posts})
 
 

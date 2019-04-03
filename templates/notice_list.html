@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>공지 사항 - {{ page }} 페이지</title>
+</head>
+<body>
+    <h1>그치만.. 점점 귀찮아 지는걸?</h1>
+    <p>현재 페이지: {{ page }}</p>
+    <p>페이지 수: {{ pages }}</p>
+    <ul>
+        {% for post in posts %}
+            <li>post.tag</li>
+            <li>post.title</li>
+            <li>post.writer</li>
+            <li>post.hit</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
