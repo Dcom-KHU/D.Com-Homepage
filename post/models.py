@@ -13,6 +13,7 @@ class PostFree(models.Model):
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
+    depth = models.IntegerField(default=0)
 
 
 class PostAlbum(models.Model):
@@ -24,6 +25,7 @@ class PostAlbum(models.Model):
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
+    depth = models.IntegerField(default=0)
 
 
 class PostJokbo(models.Model):
@@ -35,6 +37,7 @@ class PostJokbo(models.Model):
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
+    depth = models.IntegerField(default=0)
 
 
 class PostStudy(models.Model):
@@ -57,6 +60,7 @@ class PostStudy(models.Model):
     startDate = models.DateField('date study started')
     endDate = models.DateField('date study ended')
     tag = models.CharField(max_length=10, choices=TAGS, default='공지')
+    depth = models.IntegerField(default=0)
 
 
 class PostStudyMember(models.Model):
@@ -85,6 +89,7 @@ class PostNotice(models.Model):
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
     tag = models.CharField(max_length=10, choices=TAGS, default='공지')
+    depth = models.IntegerField(default=0)
 
     def __str__(self):
         return self.writer + ': ' + self.title

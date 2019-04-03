@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <p>
+        ({{ post.tag }})제목 : {{ post.title }}
+    </p>
+    <p>
+        작성자 : {{ post.writer }}
+    </p>
+    <p>
+        조회수 : {{ post.hit }}
+    </p>
+    <p>
+        작성일 : {{ post.writedAt }}
+    </p>
+    <p>
+        내용 : {{ post.content|safe }}
+    </p>
+    <p>
+        댓글 :
+    </p>
+</body>
+</html>
