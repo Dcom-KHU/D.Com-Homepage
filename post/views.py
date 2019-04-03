@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from user.models import Profile
 from post.models import PostNotice, PostFree, PostJokbo
+
 
 
 def notice_detail(request, post_id):
@@ -56,7 +59,13 @@ def notice_list(request, page=1):
     })
 
 
+@login_required
 def free_detail(request, post_id):
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.isVerified == False:
+        return PermissionDenied
+
     try:
         post_obj = PostFree.objects.get(pk=post_id)
         post_obj.hit += 1
@@ -95,7 +104,13 @@ def free_detail(request, post_id):
         return Http404
 
 
+@login_required
 def free_list(request, page=1):
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.isVerified == False:
+        return PermissionDenied
+
     post_obj = PostFree.objects.filter(parent=None).order_by('-id')
     obj_num = post_obj.count()
 
@@ -108,7 +123,13 @@ def free_list(request, page=1):
     })
 
 
+@login_required
 def jokbo_detail(request, post_id):
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.isVerified == False:
+        return PermissionDenied
+
     try:
         post_obj = PostJokbo.objects.get(pk=post_id)
         post_obj.hit += 1
@@ -147,7 +168,13 @@ def jokbo_detail(request, post_id):
         return Http404
 
 
+@login_required
 def jokbo_list(request, page=1):
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.isVerified == False:
+        return PermissionDenied
+
     post_obj = PostJokbo.objects.filter(parent=None).order_by('-id')
     obj_num = post_obj.count()
 
