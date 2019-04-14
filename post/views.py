@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from user.models import Profile
 from post.models import PostNotice, PostFree, PostJokbo
-
+from post.form import PostForm
 
 
 def notice_detail(request, post_id):
@@ -38,12 +38,13 @@ def notice_detail(request, post_id):
 
             return render(request, 'notice_post.html', {
                 'post': post_obj,
-                'comments': list_var
+                'comments': list_var,
+                'form': PostForm()
             })
         else:
             raise PermissionDenied
     except PostNotice.DoesNotExist:
-        return Http404
+        raise Http404
 
 
 def notice_list(request, page=1):
@@ -101,7 +102,7 @@ def free_detail(request, post_id):
         else:
             raise PermissionDenied
     except PostFree.DoesNotExist:
-        return Http404
+        raise Http404
 
 
 @login_required
@@ -165,7 +166,7 @@ def jokbo_detail(request, post_id):
         else:
             raise PermissionDenied
     except PostJokbo.DoesNotExist:
-        return Http404
+        raise Http404
 
 
 @login_required
