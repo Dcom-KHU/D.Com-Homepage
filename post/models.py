@@ -5,36 +5,39 @@ from user.models import User
 
 
 class PostFree(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
+    depth = models.IntegerField(default=0)
 
 
 class PostAlbum(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
+    depth = models.IntegerField(default=0)
 
 
 class PostJokbo(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
+    depth = models.IntegerField(default=0)
 
 
 class PostStudy(models.Model):
@@ -46,17 +49,21 @@ class PostStudy(models.Model):
         ('기타', '기타')
     )
 
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
     startDate = models.DateField('date study started')
     endDate = models.DateField('date study ended')
     tag = models.CharField(max_length=10, choices=TAGS, default='공지')
+    depth = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.writer + ': ' + self.title
 
 
 class PostStudyMember(models.Model):
@@ -76,15 +83,16 @@ class PostNotice(models.Model):
 
     # blank=True : Form 사용 시 입력 안해도 오류 X
     # null=True : Foreign Key가 null 값을 가져도 되게 함
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
     writer = models.CharField(max_length=50)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
-    userIdx = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
     tag = models.CharField(max_length=10, choices=TAGS, default='공지')
+    depth = models.IntegerField(default=0)
 
     def __str__(self):
         return self.writer + ': ' + self.title
