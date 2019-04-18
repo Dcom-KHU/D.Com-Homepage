@@ -186,3 +186,15 @@ def jokbo_list(request, page=1):
         'page': page,
         'pages': pages
     })
+
+@login_required
+def notice_post(request, parents=0):
+    return
+
+@login_required
+def free_post(request, parents=0):
+    return
+
+@login_required
+def jokbo_post(request, parents=0):
+    return

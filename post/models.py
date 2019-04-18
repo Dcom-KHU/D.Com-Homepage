@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from user.models import User
+from dcomhomepage.utils import extractImage, extractText
 # Create your models here.
 
 
@@ -93,6 +94,16 @@ class PostNotice(models.Model):
     link = models.CharField(max_length=50, default='', blank=True)
     tag = models.CharField(max_length=10, choices=TAGS, default='공지')
     depth = models.IntegerField(default=0)
+    imageLink = models.CharField(max_length=200, default='', blank=True)
+    summary = models.CharField(max_length=200, default='', blank=True)
 
     def __str__(self):
         return self.writer + ': ' + self.title
+
+    def save(self, *args, **kwargs):
+        exImage = extractImage(self.content)
+        if exImage is not None:
+            self.imageLink = exImage
+        self.summary = extractText(self.content)
+        super().save(*args, **kwargs)
+
