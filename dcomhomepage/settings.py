@@ -136,5 +136,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
-CKEDITOR_UPLOAD_PATH = '/uploads/'
+CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, 'uploads')
 CKEDITOR_FILENAME_GENERATOR = 'dcomhomepage.utils.getfilename'

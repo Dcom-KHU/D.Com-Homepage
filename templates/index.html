@@ -1,17 +1,205 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ name }}은 잘생겼다!</title>
-    <link rel="stylesheet" href="/static/css/index.css">
+	<meta charset="UTF-8">
+	<meta name="Generator" content="EditPlus®">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<meta name="viewport" content="width=device-width, maximum-scale=1.0">
+	<link rel="stylesheet" href="/static/css/jquery.bxslider.min.css">
+	<link rel="stylesheet" href="/static/css/default.css">
+	<link rel="stylesheet" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/skin/latest/notice/style.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+	<title>D.Com</title>
+	<script src="/static/js/jquery-3.2.1.min.js"></script>
+	<script src="/static/js/jquery.bxslider.min.js"></script>
+	<script src="/static/js/jquery.touchSwipe.min.js"></script>
+	<script src="/static/js/layout.js"></script>
+	<script src="/static/skin/latest/notice/script.js"></script>
 </head>
 <body>
-    <h1>{{ name }}은 잘생겼다!</h1>
-    <ul>
-        {% for post in posts %}
-        <li>{{ post.tag }} / {{ post.title }} / {{ post.writer }}</li>
-        {% endfor %}
-    </ul>
+	<div class="wrapper">
+		<div class="header">
+			<div class="container">
+				<div class="top row">
+					<div class="left logo hidden-xs">
+						<a href=""><img src="/static/img/logo.png"></a>
+					</div>
+					<div class="left logo visible-xs">
+						<a href=""><img src="/static/img/logo_mobile.png"></a>
+					</div>
+					<div class="nav">
+						<div class="visible-xs mobile-menu-top">
+							Menu
+						</div>
+						<ul>
+							<li class="active"><a href="">Home</a></li>
+							<li><a href="/info">Info</a></li>
+							<li><a href="/study">Study</a></li>
+							<li>
+								<a href="/board">Board</a>
+								<ul class="dropdown">
+									<li><a href="/post/notice/list">Notice</a></li>
+									<li><a href="/post/free/list">Free</a></li>
+									<li><a href="/post/free/list">Free</a></li>
+								</ul>
+							</li>
+							<li><a href="/">Sign In</a></li>
+						</ul>
+					</div> <!-- nav -->
+					<div class="mobile-menu visible-xs">
+						<button><i class="fas fa-bars"></i></button>
+					</div>
+				</div> <!-- top -->
+			</div> <!-- container -->
+		</div> <!-- header-->
+		<div class="content">
+			<div class="banner">
+				<ul>
+					<li style="background-image:url('/static/img/slider_1.jpg');">
+						<div class="container">
+							<div class="banner-content">
+								<div class="banner-subject">
+									D.Com
+								</div>
+								<div class="banner-description">
+									Big Data 시대,<br>
+									Data를 통해 세상을 바꿉니다.
+								</div>
+								<div class="banner-button">
+									<a href="/info"><button>동아리 소개</button></a>
+								</div>
+							</div> <!-- banner-content -->
+							<div class="banner-icon hidden-xs">
+							</div>
+						</div> <!-- container -->
+					</li>
+					<li style="background-image:url('/static/img/slider_2.jpg');">
+						<div class="container">
+							<div class="banner-content">
+								<div class="banner-subject">
+									D.Com
+								</div>
+								<div class="banner-description">
+									D.Com 사람들이 여러분들에게,<br>
+									도움을 주고 싶어 합니다.
+								</div>
+								<div class="banner-button">
+									<a href="/post/free/list"><button>정보 공유 게시판</button></a>
+								</div>
+							</div> <!-- banner-content -->
+							<div class="banner-icon hidden-xs">
+							</div>
+						</div> <!-- container -->
+					</li>
+					<li style="background-image:url('/static/img/slider_3.jpg');">
+						<div class="container">
+							<div class="banner-content">
+								<div class="banner-subject">
+									D.Com
+								</div>
+								<div class="banner-description">
+									D.com 사람들은<br>
+									뭘 하고 지낼까요?
+								</div>
+								<div class="banner-button">
+									<a href="/post/free/list"><button>공지사항 / 활동내역</button></a>
+								</div>
+							</div> <!-- banner-content -->
+							<div class="banner-icon hidden-xs">
+							</div>
+						</div> <!-- container -->
+					</li>
+				</ul>
+			</div> <!-- banner -->
 
+		<!-- 여기 위까지 header 파일로 분리하면 됩니다. -->
+
+			<!-- /skin/latest/notice/latest.skin.html 파일 내용과 동일 -->
+			<div class="latest-notice">
+				<div class="container">
+					<h2 class="section-header">
+						공지사항 / 활동내역
+					</h2>
+					<div class="latest-notice-list">
+						<ul class="row">
+                            {% for post in posts %}
+                            <li class="col-xs-6 col-sm-4 col-lg-3">
+                                <div class="inner">
+                                    <div class="thumbnail">
+                                        <a href="/post/notice/{{post.id}}"><img src="{{post.imageLink}}"></a>
+                                    </div>
+                                    <div class="list-content">
+                                        {% if post.tag == "공지" %}
+                                            <span class="category category-1">
+                                                <a href="#link-board-notice-view">공지</a>
+                                            </span>
+                                        {% elif post.tag == "행사" %}
+                                            <span class="category category-2">
+                                                <a href="#link-board-notice-view">행사</a>
+                                            </span>
+                                        {% elif post.tag == "대회" %}
+                                            <span class="category category-3">
+                                                <a href="#link-board-notice-view">대회</a>
+                                            </span>
+                                        {% elif post.tag == "프젝" %}
+                                            <span class="category category-4">
+                                                <a href="#link-board-notice-view">프젝</a>
+                                            </span>
+                                        {% else %}
+                                            <span class="category category-1">
+                                                <a href="#link-board-notice-view">기타</a>
+                                            </span>
+                                        {% endif %}
+                                        <span class="title">
+											<a href="/post/notice/{{post.id}}">{{ post.title }}</a>
+										</span>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+						</ul>
+						<div class="hidden-xs slide slide-left">
+							<button><i class="fas fa-caret-left"></i></button>
+						</div>
+						<div class="hidden-xs slide slide-right">
+							<button><i class="fas fa-caret-right"></i></button>
+						</div>
+					</div> <!-- latest-notice-list -->
+				</div> <!-- container -->
+			</div> <!-- latest-notice -->
+			<!-- /skin/latest/notice/latest.skin.html 파일 내용과 동일 끝 -->
+
+		<!-- 여기 아래부터 footer 파일로 분리하면 됩니다. -->
+
+		</div> <!-- content -->
+		<div class="footer">
+			<div class="footer-menu">
+				<div class="container">
+					<div class="row">
+						<ul>
+							<li><a href="#link-privacy">개인정보취급방침</a></li>
+							<li><a href="#link-policy">이용약관</a></li>
+							<li><a href="#link-noemail">이메일무단수집거부</a></li>
+						</ul>
+					</div> <!-- row -->
+				</div> <!-- container -->
+			</div> <!-- footer-menu -->
+			<div class="container">
+				<div class="footer-logo hidden-xs">
+					<img src="/static/img/footer_logo.png">
+				</div>
+				<div class="footer-logo visible-xs">
+					<img src="/static/img/footer_logo_mobile.png">
+				</div>
+				<div class="footer-copyright">
+					Copyright &copy; <strong>D.Com</strong>. All rights reserved.
+				</div>
+			</div> <!-- container -->
+		</div> <!-- footer -->
+	</div> <!-- wrapper -->
+	<div class="mobile-menu-mask" style="display:none;"></div>
 </body>
 </html>

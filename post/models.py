@@ -15,6 +15,7 @@ class PostFree(models.Model):
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
     depth = models.IntegerField(default=0)
+    summary = models.CharField(max_length=200, default='', blank=True)
 
 
 class PostAlbum(models.Model):
@@ -27,6 +28,7 @@ class PostAlbum(models.Model):
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
     depth = models.IntegerField(default=0)
+    summary = models.CharField(max_length=200, default='', blank=True)
 
 
 class PostJokbo(models.Model):
@@ -39,6 +41,7 @@ class PostJokbo(models.Model):
     writedAt = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=50, default='', blank=True)
     depth = models.IntegerField(default=0)
+    summary = models.CharField(max_length=200, default='', blank=True)
 
 
 class PostStudy(models.Model):
@@ -94,16 +97,20 @@ class PostNotice(models.Model):
     link = models.CharField(max_length=50, default='', blank=True)
     tag = models.CharField(max_length=10, choices=TAGS, default='공지')
     depth = models.IntegerField(default=0)
-    imageLink = models.CharField(max_length=200, default='', blank=True)
+    imageLink = models.CharField(max_length=200, default='/static/img/sample/document-icon.png', blank=True)
     summary = models.CharField(max_length=200, default='', blank=True)
 
     def __str__(self):
         return self.writer + ': ' + self.title
 
     def save(self, *args, **kwargs):
-        exImage = extractImage(self.content)
-        if exImage is not None:
-            self.imageLink = exImage
-        self.summary = extractText(self.content)
+        image = extractImage(self.content)
+
+        if image is not None:
+            self.imageLink = image
+        else:
+            self.imageLink = '/static/img/sample/document-icon.png'
+
+        self.summary = extractText(self.content)[:200]
         super().save(*args, **kwargs)
 
