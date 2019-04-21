@@ -22,4 +22,9 @@ urlpatterns = [
     path('share/list/<int:page>/', views.share_list, name='share_lists'),
     path('share/write/', views.share_post, name='share_post'),
     path('share/write/<int:parents>', views.share_post, name='share_comment_post'),
+    path('study/<int:post_id>/', views.study_detail, name='study_detail'),
+    path('study/list/', views.study_list, name='study_list'),
+    path('study/list/<int:page>/', views.study_list, name='study_lists'),
+    path('study/write/', views.study_post, name='study_post'),
+    path('study/write/<int:parents>', views.study_post, name='study_comment_post'),
 ]

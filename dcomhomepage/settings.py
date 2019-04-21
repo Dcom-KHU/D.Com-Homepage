@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     'board.apps.BoardConfig',
-    'study.apps.StudyConfig',
     'user.apps.UserConfig',
     'file.apps.FileConfig',
     'post.apps.PostConfig',
