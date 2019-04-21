@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -321,9 +321,17 @@ def notice_post(request, parents=-1):
 
     if request.method == "POST":
         try:
-            require_keys = ('title', 'content')
+            require_keys = ('title', 'content', 'tag')
             if all(i in request.POST for i in require_keys):
-                if parents != -1:
+                if parents == -1:
+                    postobj = PostNotice.objects.create(
+                        title=request.POST['title'],
+                        content=request.POST['contents'],
+                        userIdx=request.user,
+                        tag=request.POST['tag']
+                    )
+                    return redirect('/post/notice/{}'.format(postobj.pk))
+                elif 'next' in request.POST:
                     parentPost = PostNotice.objects.get(pk=parents)
                     postobj = PostNotice.objects.create(
                         title=request.POST['title'],
@@ -332,15 +340,9 @@ def notice_post(request, parents=-1):
                         tag=request.POST['tag'],
                         parent=parentPost
                     )
-                else:
-                    postobj = PostNotice.objects.create(
-                        title=request.POST['title'],
-                        content=request.POST['contents'],
-                        userIdx=request.user,
-                        tag=request.POST['tag']
-                    )
+                    return redirect(request.POST['next'])
         except PostNotice.DoesNotExist:
-            pass
+            raise Http404
     else:
         return render(request, "posts.html", {
             'link': '/post/notice/write/' + params,
@@ -352,16 +354,166 @@ def notice_post(request, parents=-1):
 
 @login_required
 def free_post(request, parents=-1):
-    return
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.isVerified == False:
+        raise PermissionDenied
+
+    if parents == -1:
+        params = ""
+    else:
+        params = str(parents)
+
+    if request.method == "POST":
+        try:
+            require_keys = ('title', 'content', 'tag')
+            if all(i in request.POST for i in require_keys):
+                if parents == -1:
+                    postobj = PostFree.objects.create(
+                        title=request.POST['title'],
+                        content=request.POST['contents'],
+                        userIdx=request.user
+                    )
+                    return redirect('/post/notice/{}'.format(postobj.pk))
+                elif 'next' in request.POST:
+                    parentPost = PostFree.objects.get(pk=parents)
+                    postobj = PostFree.objects.create(
+                        title=request.POST['title'],
+                        content=request.POST['contents'],
+                        userIdx=request.user,
+                        parent=parentPost
+                    )
+                    return redirect(request.POST['next'])
+        except PostFree.DoesNotExist:
+            raise Http404
+    else:
+        return render(request, "posts.html", {
+            'link': '/post/notice/write/' + params,
+            'form': PostFreeForm()
+        })
 
 @login_required
 def jokbo_post(request, parents=-1):
-    return
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.isVerified == False:
+        raise PermissionDenied
+
+    if parents == -1:
+        params = ""
+    else:
+        params = str(parents)
+
+    if request.method == "POST":
+        try:
+            require_keys = ('title', 'content', 'tag')
+            if all(i in request.POST for i in require_keys):
+                if parents == -1:
+                    postobj = PostJokbo.objects.create(
+                        title=request.POST['title'],
+                        content=request.POST['contents'],
+                        userIdx=request.user,
+                        tag=request.POST['tag']
+                    )
+                    return redirect('/post/notice/{}'.format(postobj.pk))
+                elif 'next' in request.POST:
+                    parentPost = PostJokbo.objects.get(pk=parents)
+                    postobj = PostJokbo.objects.create(
+                        title=request.POST['title'],
+                        content=request.POST['contents'],
+                        userIdx=request.user,
+                        tag=request.POST['tag'],
+                        parent=parentPost
+                    )
+                    return redirect(request.POST['next'])
+        except PostJokbo.DoesNotExist:
+            raise Http404
+    else:
+        return render(request, "posts.html", {
+            'link': '/post/notice/write/' + params,
+            'form': PostJokboForm()
+        })
 
 @login_required
 def share_post(request, parents=-1):
-    return
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.isVerified == False:
+        raise PermissionDenied
+
+    if parents == -1:
+        params = ""
+    else:
+        params = str(parents)
+
+    if request.method == "POST":
+        try:
+            require_keys = ('title', 'content', 'tag')
+            if all(i in request.POST for i in require_keys):
+                if parents == -1:
+                    postobj = PostShare.objects.create(
+                        title=request.POST['title'],
+                        content=request.POST['contents'],
+                        userIdx=request.user,
+                        tag=request.POST['tag']
+                    )
+                    return redirect('/post/notice/{}'.format(postobj.pk))
+                elif 'next' in request.POST:
+                    parentPost = PostShare.objects.get(pk=parents)
+                    postobj = PostShare.objects.create(
+                        title=request.POST['title'],
+                        content=request.POST['contents'],
+                        userIdx=request.user,
+                        tag=request.POST['tag'],
+                        parent=parentPost
+                    )
+                    return redirect(request.POST['next'])
+        except PostShare.DoesNotExist:
+            raise Http404
+    else:
+        return render(request, "posts.html", {
+            'link': '/post/notice/write/' + params,
+            'form': PostShareForm()
+        })
 
 @login_required
 def study_post(request, parents=-1):
-    return
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.isVerified == False:
+        raise PermissionDenied
+
+    if parents == -1:
+        params = ""
+    else:
+        params = str(parents)
+
+    if request.method == "POST":
+        try:
+            require_keys = ('title', 'content', 'tag')
+            if all(i in request.POST for i in require_keys):
+                if parents == -1:
+                    postobj = PostStudy.objects.create(
+                        title=request.POST['title'],
+                        content=request.POST['contents'],
+                        userIdx=request.user,
+                        tag=request.POST['tag']
+                    )
+                    return redirect('/post/notice/{}'.format(postobj.pk))
+                elif 'next' in request.POST:
+                    parentPost = PostStudy.objects.get(pk=parents)
+                    postobj = PostStudy.objects.create(
+                        title=request.POST['title'],
+                        content=request.POST['contents'],
+                        userIdx=request.user,
+                        tag=request.POST['tag'],
+                        parent=parentPost
+                    )
+                    return redirect(request.POST['next'])
+        except PostStudy.DoesNotExist:
+            raise Http404
+    else:
+        return render(request, "posts.html", {
+            'link': '/post/notice/write/' + params,
+            'form': PostStudyForm()
+        })

@@ -48,6 +48,13 @@ def welcome(request):
         return render(request, "congratuation.html")
 
 
+def agree(request):
+    if request.user.is_authenticated:
+        raise PermissionDenied
+    else:
+        return render(request, "agree.html")
+
+
 def signin(request):
     if request.user.is_authenticated:
         raise PermissionDenied
@@ -183,3 +190,37 @@ def changePassword(request):
         return render(request, 'changePassword.html', {
             'message': '변경 할 비밀 번호를 입력 해 주세요.'
         })
+
+
+def findId(request):
+    if request.user.is_authenticated:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        require_keys = ('email',)
+        if all(i in request.POST for i in require_keys):
+            try:
+                user = User.objects.get(email=request.POST['email'])
+                return render(request, 'result.html', {
+                    'message': '{} 와 연결된 계정의 ID는 다음과 같습니다.'.format(request.POST['email']),
+                    'result': user.username
+                })
+            except User.DoesNotExist:
+                return render(request, 'findId.html', {
+                    'message': '일치하는 아이디가 없습니다.'
+                })
+        else:
+            return render(request, 'findId.html', {
+                'message': '이메일을 입력 해 주세요.'
+            })
+    else:
+        return render(request, 'findId.html', {
+            'message': '이메일을 통해 아이디를 찾습니다.'
+        })
+
+
+def findPassword(request):
+    if request.user.is_authenticated:
+        raise PermissionDenied
+
+    return render(request, 'findPassword.html', {})
