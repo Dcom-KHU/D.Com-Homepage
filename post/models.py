@@ -8,7 +8,8 @@ from dcomhomepage.utils import extractImage, extractText
 class PostFree(models.Model):
     title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
-    writer = models.CharField(max_length=50)
+    writerName = models.CharField(max_length=20, blank=True)
+    writerStuNo = models.CharField(max_length=3, blank=True)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
@@ -18,7 +19,7 @@ class PostFree(models.Model):
     summary = models.CharField(max_length=200, default='', blank=True)
 
     def __str__(self):
-        return self.writer + ': ' + self.title
+        return "{} {}: {}".format(self.writerStuNo, self.writerName, self.title)
 
     def save(self, *args, **kwargs):
         profile = Profile.objects.get(user=self.userIdx)
@@ -27,7 +28,8 @@ class PostFree(models.Model):
             self.title = 'Comments'
             self.depth = self.parent.depth + 1
 
-        self.writer = profile.stuNo + ' ' + self.userIdx.first_name + self.userIdx.last_name
+        self.writerStuNo = profile.stuNo
+        self.writerName = self.userIdx.first_name + self.userIdx.last_name
         self.summary = extractText(self.content)[:200]
         super().save(*args, **kwargs)
 
@@ -35,7 +37,8 @@ class PostFree(models.Model):
 class PostAlbum(models.Model):
     title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
-    writer = models.CharField(max_length=50)
+    writerName = models.CharField(max_length=20, blank=True)
+    writerStuNo = models.CharField(max_length=3, blank=True)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
@@ -55,7 +58,8 @@ class PostJokbo(models.Model):
 
     title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
-    writer = models.CharField(max_length=50)
+    writerName = models.CharField(max_length=20, blank=True)
+    writerStuNo = models.CharField(max_length=3, blank=True)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
@@ -66,7 +70,7 @@ class PostJokbo(models.Model):
     summary = models.CharField(max_length=200, default='', blank=True)
 
     def __str__(self):
-        return self.writer + ': ' + self.title
+        return "{} {}: {}".format(self.writerStuNo, self.writerName, self.title)
 
     def save(self, *args, **kwargs):
         profile = Profile.objects.get(user=self.userIdx)
@@ -75,7 +79,8 @@ class PostJokbo(models.Model):
             self.title = 'Comments'
             self.depth = self.parent.depth + 1
 
-        self.writer = profile.stuNo + ' ' + self.userIdx.first_name + self.userIdx.last_name
+        self.writerStuNo = profile.stuNo
+        self.writerName = self.userIdx.first_name + self.userIdx.last_name
         self.summary = extractText(self.content)[:200]
         super().save(*args, **kwargs)
 
@@ -91,7 +96,8 @@ class PostStudy(models.Model):
 
     title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
-    writer = models.CharField(max_length=50)
+    writerName = models.CharField(max_length=20, blank=True)
+    writerStuNo = models.CharField(max_length=3, blank=True)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
@@ -104,7 +110,7 @@ class PostStudy(models.Model):
     summary = models.CharField(max_length=200, default='', blank=True)
 
     def __str__(self):
-        return self.writer + ': ' + self.title
+        return "{} {}: {}".format(self.writerStuNo, self.writerName, self.title)
 
     def save(self, *args, **kwargs):
         profile = Profile.objects.get(user=self.userIdx)
@@ -113,7 +119,8 @@ class PostStudy(models.Model):
             self.title = 'Comments'
             self.depth = self.parent.depth + 1
 
-        self.writer = profile.stuNo + ' ' + self.userIdx.first_name + self.userIdx.last_name
+        self.writerStuNo = profile.stuNo
+        self.writerName = self.userIdx.first_name + self.userIdx.last_name
         self.summary = extractText(self.content)[:200]
         super().save(*args, **kwargs)
 
@@ -136,7 +143,8 @@ class PostShare(models.Model):
 
     title = models.CharField(max_length=50, blank=True, default='Comments')
     content = RichTextUploadingField()
-    writer = models.CharField(max_length=50)
+    writerName = models.CharField(max_length=20, blank=True)
+    writerStuNo = models.CharField(max_length=3, blank=True)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
@@ -148,7 +156,7 @@ class PostShare(models.Model):
     summary = models.CharField(max_length=200, default='', blank=True)
 
     def __str__(self):
-        return self.writer + ': ' + self.title
+        return "{} {}: {}".format(self.writerStuNo, self.writerName, self.title)
 
     def save(self, *args, **kwargs):
         image = extractImage(self.content)
@@ -164,7 +172,8 @@ class PostShare(models.Model):
             self.title = 'Comments'
             self.depth = self.parent.depth + 1
 
-        self.writer = profile.stuNo + ' ' + self.userIdx.first_name + self.userIdx.last_name
+        self.writerStuNo = profile.stuNo
+        self.writerName = self.userIdx.first_name + self.userIdx.last_name
         self.summary = extractText(self.content)[:200]
         super().save(*args, **kwargs)
 
@@ -182,7 +191,8 @@ class PostNotice(models.Model):
     # null=True : Foreign Key가 null 값을 가져도 되게 함
     title = models.CharField(max_length=50, blank=True, default='')
     content = RichTextUploadingField()
-    writer = models.CharField(max_length=50, default='0')
+    writerName = models.CharField(max_length=20, blank=True)
+    writerStuNo = models.CharField(max_length=3, blank=True)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     hit = models.IntegerField(default=0)
@@ -194,7 +204,7 @@ class PostNotice(models.Model):
     summary = models.CharField(max_length=200, default='', blank=True)
 
     def __str__(self):
-        return self.writer + ': ' + self.title
+        return "{} {}: {}".format(self.writerStuNo, self.writerName, self.title)
 
     def save(self, *args, **kwargs):
         image = extractImage(self.content)
@@ -210,6 +220,7 @@ class PostNotice(models.Model):
             self.title = 'Comments'
             self.depth = self.parent.depth + 1
 
-        self.writer = profile.stuNo + ' ' + self.userIdx.first_name + self.userIdx.last_name
+        self.writerStuNo = profile.stuNo
+        self.writerName = self.userIdx.first_name + self.userIdx.last_name
         self.summary = extractText(self.content)[:200]
         super().save(*args, **kwargs)
