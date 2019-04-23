@@ -1,17 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ name }}은 잘생겼다!</title>
-    <link rel="stylesheet" href="/static/css/index.css">
-</head>
-<body>
-    <h1>{{ name }}은 잘생겼다!</h1>
-    <ul>
-        {% for post in posts %}
-        <li>{{ post.tag }} / {{ post.title }} / {{ post.writer }}</li>
-        {% endfor %}
-    </ul>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block css %}<link rel="stylesheet" href="/static/css/latest_notice.css">{% endblock %}
+{% block scripts %}<script src="/static/js/latest_notice.js"></script>{% endblock %}
+
+{% block contents %}
+    <div class="content">
+			<div class="banner">
+				<ul>
+					<li style="background-image:url('/static/img/slider_1.jpg');">
+						<div class="container">
+							<div class="banner-content">
+								<div class="banner-subject">
+									D.Com
+								</div>
+								<div class="banner-description">
+									Big Data 시대,<br>
+									Data를 통해 세상을 바꿉니다.
+								</div>
+								<div class="banner-button">
+									<a href="/info"><button>동아리 소개</button></a>
+								</div>
+							</div> <!-- banner-content -->
+							<div class="banner-icon hidden-xs">
+							</div>
+						</div> <!-- container -->
+					</li>
+					<li style="background-image:url('/static/img/slider_2.jpg');">
+						<div class="container">
+							<div class="banner-content">
+								<div class="banner-subject">
+									D.Com
+								</div>
+								<div class="banner-description">
+									D.Com 사람들이 여러분들에게,<br>
+									도움을 주고 싶어 합니다.
+								</div>
+								<div class="banner-button">
+									<a href="/post/free/list"><button>정보 공유 게시판</button></a>
+								</div>
+							</div> <!-- banner-content -->
+							<div class="banner-icon hidden-xs">
+							</div>
+						</div> <!-- container -->
+					</li>
+					<li style="background-image:url('/static/img/slider_3.jpg');">
+						<div class="container">
+							<div class="banner-content">
+								<div class="banner-subject">
+									D.Com
+								</div>
+								<div class="banner-description">
+									D.com 사람들은<br>
+									뭘 하고 지낼까요?
+								</div>
+								<div class="banner-button">
+									<a href="/post/free/list"><button>공지사항 / 활동내역</button></a>
+								</div>
+							</div> <!-- banner-content -->
+							<div class="banner-icon hidden-xs">
+							</div>
+						</div> <!-- container -->
+					</li>
+				</ul>
+			</div> <!-- banner -->
+
+		<!-- 여기 위까지 header 파일로 분리하면 됩니다. -->
+
+			<!-- /skin/latest/notice/latest.skin.html 파일 내용과 동일 -->
+			<div class="latest-notice">
+				<div class="container">
+					<h2 class="section-header">
+						공지사항 / 활동내역
+					</h2>
+					<div class="latest-notice-list">
+						<ul class="row">
+                            {% for post in posts %}
+                            <li class="col-xs-6 col-sm-4 col-lg-3">
+                                <div class="inner">
+                                    <div class="thumbnail">
+                                        <a href="/post/notice/{{post.id}}"><img src="{{post.imageLink}}"></a>
+                                    </div>
+                                    <div class="list-content">
+                                        {% if post.tag == "공지" %}
+                                            <span class="category category-1">
+                                                <a href="#link-board-notice-view">공지</a>
+                                            </span>
+                                        {% elif post.tag == "행사" %}
+                                            <span class="category category-2">
+                                                <a href="#link-board-notice-view">행사</a>
+                                            </span>
+                                        {% elif post.tag == "대회" %}
+                                            <span class="category category-3">
+                                                <a href="#link-board-notice-view">대회</a>
+                                            </span>
+                                        {% elif post.tag == "프젝" %}
+                                            <span class="category category-4">
+                                                <a href="#link-board-notice-view">프젝</a>
+                                            </span>
+                                        {% else %}
+                                            <span class="category category-1">
+                                                <a href="#link-board-notice-view">기타</a>
+                                            </span>
+                                        {% endif %}
+                                        <span class="title">
+											<a href="/post/notice/{{post.id}}">{{ post.title }}</a>
+										</span>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+						</ul>
+						<div class="hidden-xs slide slide-left">
+							<button><i class="fas fa-caret-left"></i></button>
+						</div>
+						<div class="hidden-xs slide slide-right">
+							<button><i class="fas fa-caret-right"></i></button>
+						</div>
+					</div> <!-- latest-notice-list -->
+				</div> <!-- container -->
+			</div> <!-- latest-notice -->
+			<!-- /skin/latest/notice/latest.skin.html 파일 내용과 동일 끝 -->
+
+		<!-- 여기 아래부터 footer 파일로 분리하면 됩니다. -->
+
+		</div> <!-- content -->
+{% endblock %}

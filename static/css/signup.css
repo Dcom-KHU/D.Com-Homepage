@@ -1,0 +1,14 @@
+.signup { margin-top:50px; }
+.signup form { width:100%; max-width:700px; margin:0 auto; }
+.signup .form-bottom { margin:0; }
+.signup .button-box { text-align:right; }
+.signup .form-padding { padding:0 15px; }
+.signup .form-header { text-align:right; }
+.signup textarea { height:150px; }
+.signup .all-agree-box { text-align:right; }
+
+
+/* mobile */
+@media (max-width:767px) {
+	.signup .button-box button { display:block; width:100%; height:50px; }
+}

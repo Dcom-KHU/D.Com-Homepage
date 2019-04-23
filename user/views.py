@@ -7,7 +7,7 @@ from django.contrib.auth import login, logout, authenticate
 from user.models import Profile
 
 
-def signup(request):
+def signupForm(request):
     if request.user.is_authenticated:
         raise PermissionDenied
 
@@ -31,12 +31,12 @@ def signup(request):
             return redirect("/user/welcome/")
         else:
             message = '오류가 발생했습니다.'
-            return render(request, 'signup.html', {
+            return render(request, 'signupForm.html', {
                 "message": message
             })
     else:
         message = '회원 가입 폼을 입력 해 주세요'
-        return render(request, 'signup.html', {
+        return render(request, 'signupForm.html', {
             "message": message
         })
 
@@ -46,6 +46,13 @@ def welcome(request):
         return redirect("/user/signin/")
     else:
         return render(request, "congratuation.html")
+
+
+def signup(request):
+    if request.user.is_authenticated:
+        raise PermissionDenied
+    else:
+        return render(request, "signup.html")
 
 
 def signin(request):
@@ -183,3 +190,37 @@ def changePassword(request):
         return render(request, 'changePassword.html', {
             'message': '변경 할 비밀 번호를 입력 해 주세요.'
         })
+
+
+def findId(request):
+    if request.user.is_authenticated:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        require_keys = ('email',)
+        if all(i in request.POST for i in require_keys):
+            try:
+                user = User.objects.get(email=request.POST['email'])
+                return render(request, 'result.html', {
+                    'message': '{} 와 연결된 계정의 ID는 다음과 같습니다.'.format(request.POST['email']),
+                    'result': user.username
+                })
+            except User.DoesNotExist:
+                return render(request, 'findId.html', {
+                    'message': '일치하는 아이디가 없습니다.'
+                })
+        else:
+            return render(request, 'findId.html', {
+                'message': '이메일을 입력 해 주세요.'
+            })
+    else:
+        return render(request, 'findId.html', {
+            'message': '이메일을 통해 아이디를 찾습니다.'
+        })
+
+
+def findPassword(request):
+    if request.user.is_authenticated:
+        raise PermissionDenied
+
+    return render(request, 'findPassword.html', {})
