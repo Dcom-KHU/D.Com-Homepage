@@ -1,60 +1,11 @@
-<!doctype html>
-<html lang="ko">
-<head>
-	<meta charset="UTF-8">
-	<meta name="Generator" content="EditPlus®">
-	<meta name="Author" content="">
-	<meta name="Keywords" content="">
-	<meta name="Description" content="">
-	<meta name="viewport" content="width=device-width, maximum-scale=1.0">
-	<link rel="stylesheet" href="/static/css/jquery.bxslider.min.css">
-	<link rel="stylesheet" href="/static/css/default.css">
-	<link rel="stylesheet" href="/static/css/style.css">
-	<link rel="stylesheet" href="/static/skin/member/signin/style.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-	<title>Sign in - D.Com</title>
-	<script src="/static/js/jquery-3.2.1.min.js"></script>
-	<script src="/static/js/jquery.bxslider.min.js"></script>
-	<script src="/static/js/jquery.touchSwipe.min.js"></script>
-	<script src="/static/js/layout.js"></script>
-	<script src="/static/skin/member/signin/script.js"></script>
-</head>
-<body>
-	<div class="wrapper">
-		<div class="header">
-			<div class="container">
-				<div class="top row">
-					<div class="left logo hidden-xs">
-						<a href="/"><img src="/static/img/logo.png"></a>
-					</div>
-					<div class="left logo visible-xs">
-						<a href="/"><img src="/static/img/logo_mobile.png"></a>
-					</div>
-					<div class="nav">
-						<div class="visible-xs mobile-menu-top">
-							Menu
-						</div>
-						<ul>
-							<li class="active"><a href="">Home</a></li>
-							<li><a href="/info">Info</a></li>
-							<li><a href="/study">Study</a></li>
-							<li>
-								<a href="/board">Board</a>
-								<ul class="dropdown">
-									<li><a href="/post/notice/list">Notice</a></li>
-									<li><a href="/post/free/list">Free</a></li>
-									<li><a href="/post/free/list">Free</a></li>
-								</ul>
-							</li>
-							<li><a href="/user/signin">Sign In</a></li>
-						</ul>
-					</div> <!-- nav -->
-					<div class="mobile-menu visible-xs">
-						<button><i class="fas fa-bars"></i></button>
-					</div>
-				</div> <!-- top -->
-			</div> <!-- container -->
-		</div> <!-- header-->
+{% extends "base.html" %}
+
+{% block description %}D.Com의 로그인 페이지{% endblock %}
+{% block title %}Sign in - D.Com{% endblock %}
+{% block css %}<link rel="stylesheet" href="/static/css/signin.css">{% endblock %}
+{% block scripts %}<script src="/static/js/signin.js"></script>{% endblock %}
+
+{% block contents %}
 		<div class="content">
 			<div class="banner sub-banner">
 				<ul>
@@ -116,31 +67,4 @@
 		<!-- 여기 아래부터 footer 파일로 분리하면 됩니다. -->
 
 		</div> <!-- content -->
-		<div class="footer">
-			<div class="footer-menu">
-				<div class="container">
-					<div class="row">
-						<ul>
-							<li><a href="#link-privacy">개인정보취급방침</a></li>
-							<li><a href="#link-policy">이용약관</a></li>
-							<li><a href="#link-noemail">이메일무단수집거부</a></li>
-						</ul>
-					</div> <!-- row -->
-				</div> <!-- container -->
-			</div> <!-- footer-menu -->
-			<div class="container">
-				<div class="footer-logo hidden-xs">
-					<img src="/static/img/footer_logo.png">
-				</div>
-				<div class="footer-logo visible-xs">
-					<img src="/static/img/footer_logo_mobile.png">
-				</div>
-				<div class="footer-copyright">
-					Copyright &copy; <strong>D.Com</strong>. All rights reserved.
-				</div>
-			</div> <!-- container -->
-		</div> <!-- footer -->
-	</div> <!-- wrapper -->
-	<div class="mobile-menu-mask" style="display:none;"></div>
-</body>
-</html>
+{% endblock %}

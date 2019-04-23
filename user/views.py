@@ -7,7 +7,7 @@ from django.contrib.auth import login, logout, authenticate
 from user.models import Profile
 
 
-def signup(request):
+def signupForm(request):
     if request.user.is_authenticated:
         raise PermissionDenied
 
@@ -31,12 +31,12 @@ def signup(request):
             return redirect("/user/welcome/")
         else:
             message = '오류가 발생했습니다.'
-            return render(request, 'signup.html', {
+            return render(request, 'signupForm.html', {
                 "message": message
             })
     else:
         message = '회원 가입 폼을 입력 해 주세요'
-        return render(request, 'signup.html', {
+        return render(request, 'signupForm.html', {
             "message": message
         })
 
@@ -48,11 +48,11 @@ def welcome(request):
         return render(request, "congratuation.html")
 
 
-def agree(request):
+def signup(request):
     if request.user.is_authenticated:
         raise PermissionDenied
     else:
-        return render(request, "agree.html")
+        return render(request, "signup.html")
 
 
 def signin(request):
