@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import dcomhomepage.env as env
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,8 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# 진짜 꼭 배포할때는 수정 하고 올려야 합니다.
-SECRET_KEY = '&j_om1^_7&etf6or6ghlne@2-0o%vqtanm4fdo070ea6xri1+3'
+# env 파일이 필요합니다.
+SECRET_KEY = env.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -137,3 +138,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, 'uploads')
 CKEDITOR_FILENAME_GENERATOR = 'dcomhomepage.utils.getfilename'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'dcomhelper@gmail.com'
+EMAIL_HOST_PASSWORD = env.EMAIL_HOST_PASSWORD
+SERVER_EMAIL = 'dcomhelper@gmail.com'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
