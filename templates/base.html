@@ -33,22 +33,21 @@
 					</div>
 					<div class="nav">
 						<div class="visible-xs mobile-menu-top">
-							Menu
+							메뉴
 						</div>
 						<ul>
 							<li class="active"><a href="">Home</a></li>
 							<li><a href="/info">Info</a></li>
-							<li><a href="/post/study/list">Study</a></li>
 							<li>
 								<a href="/board">Board</a>
 								<ul class="dropdown">
 									<li><a href="/post/notice/list">Notice</a></li>
 									<li><a href="/post/free/list">Free</a></li>
-									<li><a href="/post/free/list">Free</a></li>
+								<li><a href="/post/study/list">Study</a></li>
 								</ul>
 							</li>
 							{% if request.user.is_authenticated %}
-                                <li style="font-size: 1em; color: black">Hello! <strong>{{ request.user.first_name}}{{ request.user.last_name }}</strong></li>
+                                <li><a href="/user/logout">Logout</a></li>
                             {% else %}
                                 <li><a href="/user/signin">Sign In</a></li>
                             {% endif %}
