@@ -1,0 +1,38 @@
+.board-view { margin-top:50px; }
+.board-view h2 { font-size:30px; }
+.board-view .board-view-etc { margin-top:20px; }
+.board-view .board-view-etc:after { display:block; clear:both; content:""; visibility:hidden; }
+.board-view .board-view-etc li { float:left; color:#b5b5b5; }
+.board-view .board-view-etc li:nth-child(n+2) { margin-left:20px; }
+.board-view .board-view-content { margin-top:40px; width:100%; overflow-x:hidden; }
+.board-view .post-subject { vertical-align:middle; }
+.board-view .category { display:inline-block; vertical-align:middle; width:56px; height:32px; box-sizing:border-box; padding:6px 12px; border-radius:6px; font-size:16px; margin-right:3px; color:#fff; }
+.board-view .category-1 { background-color:#a20f16; }
+.board-view .category-2 { background-color:#014f99; }
+.board-view .category-3 { background-color:#ff8a00; }
+.board-view .category-4 { background-color:#037513; }
+.board-view .board-view-user { margin-top:10px; font-size:16px; }
+.board-view .board-view-user .hakbun { display:inline-block; width:20px; height:20px; vertical-align:middle; background-color:#ddd; }
+.board-view .board-view-user .name { vertical-align:middle; }
+.board-view .board-view-buttons { margin-top:10px; text-align:right; }
+.board-view .board-view-buttons a { width:auto; height:30px; padding:5px 10px; box-sizing:border-box; display:inline-block; background-color:#A748FF; color:#fff; border:0; }
+
+.board-comment { margin-top:30px; }
+.board-comment .comment-count { font-size:16px; padding:10px 0; border-bottom:2px solid #ddd; }
+.board-comment .comment-count strong { font-weight:normal; font-size:20px; }
+.board-comment .comment-write { margin-top:20px; }
+.board-comment .comment-write textarea { width:100%; height:100px; border:1px solid #e8e8e8; box-sizing:border-box; padding:10px; display:block; }
+.board-comment .comment-write .buttons { text-align:right; margin-top:10px; }
+.board-comment .comment-write button { width:100px; height:40px; font-size:16px; background-color:#014f99; border:0; color:#fff; }
+.board-comment .comments .depth-0 { padding-left:0; }
+.board-comment .comments .depth-1 { padding-left:20px; }
+.board-comment .comments .depth-2 { padding-left:40px; }
+.board-comment .comments .depth-3 { padding-left:60px; }
+.board-comment .comments .depth-4 { padding-left:80px; }
+.board-comment .comments .depth-5 { padding-left:100px; }
+.board-comment .comment { position:relative; margin-top:20px; }
+.board-comment .comment .comment-user { font-size:16px; }
+.board-comment .comment .comment-user .hakbun { display:inline-block; width:20px; height:20px; vertical-align:middle; background-color:#ddd; }
+.board-comment .comment .comment-user .name { vertical-align:middle; }
+.board-comment .comment .comment-datetime { position:absolute; top:0; right:0; font-size:14px; color:#999; }
+.board-comment .comment .comment-content { width:100%; overflow-x:hidden; margin-top:10px; }

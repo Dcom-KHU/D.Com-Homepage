@@ -18,7 +18,27 @@
                         <div class="post-container">
                             <h2>
                                 <a href="/post/notice/{{ post.id }}">
-                                    <span class="category category-1">{{ post.tag }}</span>
+                                    {% if post.tag == "공지" %}
+                                        <span class="category category-1">
+                                            공지
+                                        </span>
+                                    {% elif post.tag == "행사" %}
+                                        <span class="category category-2">
+                                            행사
+                                        </span>
+                                    {% elif post.tag == "대회" %}
+                                        <span class="category category-3">
+                                            대회
+                                        </span>
+                                    {% elif post.tag == "프젝" %}
+                                        <span class="category category-4">
+                                            프젝
+                                        </span>
+                                    {% else %}
+                                        <span class="category category-1">
+                                            기타
+                                        </span>
+                                    {% endif %}
                                     <span class="post-subject">{{ post.title }}</span>
                                 </a>
                             </h2>
@@ -48,13 +68,19 @@
             </ul> <!-- posts -->
             <div class="pager">
                 <ul>
-                    <!--li><a href="#"><i class="fas fa-arrow-left"></i></a></li-->
-                    <li class="active"><a href="/post/notice/1">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#"><i class="fas fa-arrow-right"></i></a></li>
+                    {% if start_page != 1 %}
+                        <li><a href="/post/notice/list/{{ start_page|add:"-1" }}"><i class="fas fa-arrow-left"></i></a></li>
+                    {% endif %}
+                    {% for i in range %}
+                        {% if i == current_page %}
+                            <li class="active"><a href="/post/notice/list/{{ i }}">{{ i }}</a></li>
+                        {% else %}
+                            <li><a href="/post/notice/list/{{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if end_page != pages %}
+                        <li><a href="/post/notice/list/{{ end_page|add:"1" }}"><i class="fas fa-arrow-right"></i></a></li>
+                    {% endif %}
                 </ul>
             </div> <!-- pager -->
         </div> <!-- container -->
