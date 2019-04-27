@@ -59,8 +59,27 @@
 				</div> <!-- top -->
 			</div> <!-- container -->
 		</div> <!-- header-->
-		{% block contents %}
-            
+        <div class="content">
+            <div class="banner sub-banner">
+                <ul>
+                    <li style="background-image:url({% block boardImg %}{% endblock %});">
+                        <div class="container">
+                            <div class="banner-content">
+                                <div class="banner-subject">
+                                    {% block boardTitle %}{% endblock %}
+                                </div>
+                                <div class="banner-description">
+                                    {% block boardSubTitle %}{% endblock %}
+                                </div>
+                            </div> <!-- banner-content -->
+                            <div class="banner-icon hidden-xs">
+                            </div>
+                        </div> <!-- container -->
+                    </li>
+                </ul>
+            </div> <!-- banner -->
+		    {% block contents %}
+        </div>
 		{% endblock %}
 		<div class="footer">
 			<div class="footer-menu">
