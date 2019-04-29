@@ -54,9 +54,9 @@
 /* sm~md */
 @media (min-width:768px) and (max-width:991px) {
 	.posts { width:750px; }
-*/
+}
 
 /* ~sm */
 @media (max-width:767px) {
 	.posts { width:100%; }
-*/
+}
