@@ -1,0 +1,24 @@
+.board-write { margin-top:50px; }
+.board-write .write-form { margin:0 auto; }
+.board-write textarea { min-height:300px; padding:5px; }
+.board-write .form-box { margin-bottom:10px; }
+.board-write select { min-width:150px; }
+.board-write .dropzone { min-height:100px; border:1px solid #ddd; }
+.board-write .dropzone.dz-drag-hover { background-color:#eaeaea; }
+.board-write .buttons { text-align:right; }
+.board-write .buttons button { width:100px; height:40px; font-size:16px; background-color:#014f99; border:0; color:#fff; }
+
+/* md~ */
+@media (min-width:992px) {
+	.write-form { width:900px; }
+}
+
+/* sm~md */
+@media (min-width:768px) and (max-width:991px) {
+	.write-form { width:750px; }
+}
+
+/* ~sm */
+@media (max-width:767px) {
+	.write-form { width:100%; }
+}
