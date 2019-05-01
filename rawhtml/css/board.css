@@ -1,62 +1,72 @@
-.posts { margin:50px auto 0 auto; }
-.posts .post-article { position:relative; margin-bottom:30px; padding-bottom:30px; border-bottom:1px solid #ededed; }
-.posts .post-article:after { clear:both; visibility:hidden; display:block; content:""; }
-.posts .post-image { position:absolute; }
-.posts h2 { font-size:24px; padding-bottom:14px; height:46px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.posts h2 a { color:#434a53; }
-.posts h2 a:hover { color:#000; }
-.posts .post-subject { vertical-align:middle; }
-.posts .category { display:inline-block; vertical-align:middle; width:56px; height:32px; box-sizing:border-box; padding:6px 12px; border-radius:6px; font-size:16px; margin-right:3px; color:#fff; }
-.posts .category-1 { background-color:#a20f16; }
-.posts .category-2 { background-color:#014f99; }
-.posts .category-3 { background-color:#ff8a00; }
-.posts .category-4 { background-color:#037513; }
-.posts .post-content { white-space:normal; overflow:hidden; font-size:14px; margin-bottom:20px; }
-.posts .post-content a { display:-webkit-box; -webkit-box-orient:vertical; color:#666; }
-.posts .post-content a:hover { color:#000; }
-.posts .post-etc:after { display:block; clear:both; visibility:hidden; content:""; }
-.posts .post-etc li { float:left; color:#b5b5b5; }
-.posts .post-etc li:nth-child(n+2) { margin-left:20px; }
+.board .posts { margin:50px auto 0 auto; }
+.board .posts .post-article { position:relative; margin-bottom:20px; padding-bottom:25px; border-bottom:1px solid #ededed; }
+.board .posts .post-article:after { clear:both; visibility:hidden; display:block; content:""; }
+.board .posts .post-image { position:absolute; }
+.board .posts h2 { font-size:24px; padding-bottom:14px; height:46px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.board .posts h2 a { color:#434a53; }
+.board .posts h2 a:hover { color:#000; }
+.board .posts .post-subject { vertical-align:middle; }
+.board .posts .category { display:inline-block; vertical-align:middle; width:56px; height:32px; box-sizing:border-box; padding:6px 12px; border-radius:6px; font-size:16px; margin-right:3px; color:#fff; }
+.board .posts .category-1 { background-color:#a20f16; }
+.board .posts .category-2 { background-color:#014f99; }
+.board .posts .category-3 { background-color:#ff8a00; }
+.board .posts .category-4 { background-color:#037513; }
+.board .posts .post-content { white-space:normal; overflow:hidden; font-size:14px; margin-bottom:10px; }
+.board .posts .post-content a { display:-webkit-box; -webkit-box-orient:vertical; color:#666; }
+.board .posts .post-content a:hover { color:#000; }
+.board .posts .post-etc:after { display:block; clear:both; visibility:hidden; content:""; }
+.board .posts .post-etc li { float:left; color:#b5b5b5; margin-right:20px; margin-bottom:5px; }
+.board .posts .post-user { margin-bottom:10px; font-size:16px; }
+.board .posts .post-user .hakbun { text-align:center; display:inline-block; width:20px; height:20px; vertical-align:middle; background-color:#ddd; }
+.board .posts .post-user .name { vertical-align:middle; }
 
-.pager { text-align:center; }
-.pager ul { display:inline-block; }
-.pager:after { display:block; clear:both; visibility:hidden; content:""; }
-.pager li { float:left; width:30px; height:30px; border:1px solid #bbb; border-radius:50%; line-height:27px; text-align:center; font-size:14px; margin:0 3px; }
-.pager li a { color:#bbb; }
-.pager li.active { background-color:#bbb; }
-.pager li.active a { color:#fff; }
+.board .write-button { text-align:right; margin:0 auto; margin-bottom:20px; }
+.board .write-button a { width:auto; height:30px; padding:5px 10px; box-sizing:border-box; display:inline-block; background-color:#a748ff; color:#fff; border:0; }
+
+.board .pager { text-align:center; }
+.board .pager ul { display:inline-block; }
+.board .pager:after { display:block; clear:both; visibility:hidden; content:""; }
+.board .pager li { float:left; width:30px; height:30px; border:1px solid #bbb; border-radius:50%; line-height:27px; text-align:center; font-size:14px; margin:0 3px; }
+.board .pager li a { color:#bbb; }
+.board .pager li.active { background-color:#bbb; }
+.board .pager li.active a { color:#fff; }
 
 
 /* mobile */
 @media (max-width:767px) {
-	.posts { width:100%; }
-	.posts .post-container { width:100%; }
-	.posts .post-content { padding-left:120px; margin-bottom:30px; }
-	.posts .post-content a { -webkit-line-clamp:3; }
-	.posts .post-image { width:120px; left:0; top:46px; }
-	.posts .post-image img { width:100px; height:70px; }
-}
-
+	.board .posts { width:100%; }
+	.board .write-button { width:100%; }
+	.board .posts .post-container { width:100%; }
+	.board .posts .post-content { padding-left:120px; margin-bottom:10px; }
+	.board .posts .post-content a { -webkit-line-clamp:4; }
+	.board .posts .post-image { width:120px; left:0; top:46px; }
+	.board .posts .post-image img { width:100px; height:70px; }
+} 
+ 
 /* pc */
 @media (min-width:768px) {
-	.posts { width:750px; }
-	.posts .post-container { width:-moz-calc(100% - 200px); width:-webkit-calc(100% - 200px); width:calc(100% - 200px); }
-	.posts .post-content a { -webkit-line-clamp:2; }
-	.posts .post-image { width:200px; padding-left:30px; right:0; top:0; }
-	.posts .post-image img { width:170px; height:120px; }
+	.board .posts { width:750px; }
+	.board .write-button { width:750px; }
+	.board .posts .post-container { width:-moz-calc(100% - 200px); width:-webkit-calc(100% - 200px); width:calc(100% - 200px); }
+	.board .posts .post-content a { -webkit-line-clamp:2; }
+	.board .posts .post-image { width:200px; padding-left:30px; right:0; top:0; }
+	.board .posts .post-image img { width:170px; height:120px; }
 }
 
-/* md~ */
+/* md */
 @media (min-width:992px) {
-	.posts { width:900px; }
+	.board .posts { width:900px; }
+	.board .write-button { width:900px; }
 }
 
-/* sm~md */
+/* sm */
 @media (min-width:768px) and (max-width:991px) {
-	.posts { width:750px; }
+	.board .posts { width:750px; }
+	.board .write-button { width:750px; }
 }
 
-/* ~sm */
+/* xs */
 @media (max-width:767px) {
-	.posts { width:100%; }
+	.board .posts { width:100%; }
+	.board .write-button { width:100%; }
 }
