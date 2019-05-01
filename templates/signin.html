@@ -1,33 +1,15 @@
-{% extends "base.html" %}
+{% extends "base-with-banner.html" %}
 
 {% block description %}D.Com의 로그인 페이지{% endblock %}
 {% block title %}Sign in - D.Com{% endblock %}
 {% block css %}<link rel="stylesheet" href="/static/css/signin.css">{% endblock %}
 {% block scripts %}<script src="/static/js/signin.js"></script>{% endblock %}
 
+{% block boardImg %}'/static/img/signin.jpg'{% endblock %}
+{% block boardTitle %}Sign In{% endblock %}
+{% block boardSubTitle %}찾아주셔서 감사합니다!{% endblock %}
+
 {% block contents %}
-		<div class="content">
-			<div class="banner sub-banner">
-				<ul>
-					<li style="background-image:url('/static/img/signin.jpg');">
-						<div class="container">
-							<div class="banner-content">
-								<div class="banner-subject">
-									Sign In
-								</div>
-								<div class="banner-description">
-									찾아주셔서 감사합니다!
-								</div>
-							</div> <!-- banner-content -->
-							<div class="banner-icon hidden-xs">
-							</div>
-						</div> <!-- container -->
-					</li>
-				</ul>
-			</div> <!-- banner -->
-
-		<!-- 여기 위까지 header 파일로 분리하면 됩니다. -->
-
 			<!-- /skin/member/signin/signin.skin.html 파일 내용과 동일 -->
 			<div class="signin">
                 <p align="center">
@@ -65,6 +47,4 @@
 			<!-- /skin/member/signin/signin.skin.html 파일 내용과 동일 끝 -->
 
 		<!-- 여기 아래부터 footer 파일로 분리하면 됩니다. -->
-
-		</div> <!-- content -->
 {% endblock %}

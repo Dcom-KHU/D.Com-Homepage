@@ -4,7 +4,10 @@ from django.http import Http404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+from django.core.mail import EmailMessage
 from user.models import Profile
+import string
+import random
 
 
 def signupForm(request):
@@ -201,6 +204,8 @@ def findId(request):
         if all(i in request.POST for i in require_keys):
             try:
                 user = User.objects.get(email=request.POST['email'])
+                username = user.username
+                username
                 return render(request, 'result.html', {
                     'message': '{} 와 연결된 계정의 ID는 다음과 같습니다.'.format(request.POST['email']),
                     'result': user.username
@@ -223,4 +228,23 @@ def findPassword(request):
     if request.user.is_authenticated:
         raise PermissionDenied
 
-    return render(request, 'findPassword.html', {})
+    if request.method == "POST":
+        require_keys = ('userId', 'email')
+        if all(i in request.POST for i in require_keys):
+            try:
+                user = User.objects.get(email=request.POST['email'], username=['userId'])
+                new_password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+                user.set_password(new_password)
+                EmailMessage('D.Com 홈페이지 비밀번호가 변경 되었습니다.', '귀하의 변경된 비밀번호는 {} 입니다. \n비밀번호 변경을 신청하지 않으셨다면 관리자에게 문의 주세요.'.format(new_password), to=[user.email])
+                return render(request, 'result.html', {
+                    'message': '귀하의 이메일, {} 로 변경된 비밀 번호가 전송 되었습니다.'.format(user.email)
+                })
+            except User.DoesNotExist:
+                return render(request, 'findPassword.html', {
+                    'message': '입력 하신 정보가 일치 하지 않습니다, 다시 입력 해 주세요.'
+                })
+
+
+    return render(request, 'findPassword.html', {
+        'message': '임시 비밀번호 발급을 위해 아이디와 이메일을 입력 해 주세요.'
+    })
