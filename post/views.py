@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponseBadRequest
 from user.models import Profile
 from post.models import PostNotice, PostFree, PostJokbo, PostShare, PostStudy
-from post.form import PostNoticeForm, PostJokboForm, PostFreeForm, PostShareForm, PostStudyForm, CommentForm
+from post.form import PostForm
 
 
 def notice_detail(request, post_id):
@@ -39,7 +39,7 @@ def notice_detail(request, post_id):
             return render(request, 'notice_post.html', {
                 'post': post_obj,
                 'comments': list_var,
-                'commentForm': CommentForm()
+                'commentForm': PostForm()
             })
         else:
             raise PermissionDenied
@@ -92,7 +92,7 @@ def share_detail(request, post_id):
             return render(request, 'notice_post.html', {
                 'post': post_obj,
                 'comments': list_var,
-                'commentForm': CommentForm()
+                'commentForm': PostForm()
             })
         else:
             raise PermissionDenied
@@ -151,7 +151,7 @@ def free_detail(request, post_id):
             return render(request, 'notice_post.html', {
                 'post': post_obj,
                 'comments': list_var,
-                'commentForm': CommentForm()
+                'commentForm': PostForm()
             })
         else:
             raise PermissionDenied
@@ -216,7 +216,7 @@ def jokbo_detail(request, post_id):
             return render(request, 'notice_post.html', {
                 'post': post_obj,
                 'comments': list_var,
-                'commentForm': CommentForm()
+                'commentForm': PostForm()
             })
         else:
             raise PermissionDenied
@@ -280,7 +280,7 @@ def study_detail(request, post_id):
             return render(request, 'study_post.html', {
                 'post': post_obj,
                 'comments': list_var,
-                'commentForm': CommentForm()
+                'commentForm': PostForm()
             })
         else:
             raise PermissionDenied
@@ -308,45 +308,30 @@ def study_list(request, page=1):
 
 
 @login_required
-def notice_post(request, parents=-1):
+def notice_post(request):
     profile = Profile.objects.get(pk=request.user)
 
     if profile.isVerified == False:
         raise PermissionDenied
 
-    if parents == -1:
-        params = ""
-    else:
-        params = str(parents)
-
     if request.method == "POST":
         try:
             require_keys = ('title', 'content', 'tag')
             if all(i in request.POST for i in require_keys):
-                if parents == -1:
-                    postobj = PostNotice.objects.create(
-                        title=request.POST['title'],
-                        content=request.POST['contents'],
-                        userIdx=request.user,
-                        tag=request.POST['tag']
-                    )
-                    return redirect('/post/notice/{}'.format(postobj.pk))
-                elif 'next' in request.POST:
-                    parentPost = PostNotice.objects.get(pk=parents)
-                    postobj = PostNotice.objects.create(
-                        title=request.POST['title'],
-                        content=request.POST['contents'],
-                        userIdx=request.user,
-                        tag=request.POST['tag'],
-                        parent=parentPost
-                    )
-                    return redirect(request.POST['next'])
+                postobj = PostNotice.objects.create(
+                    title=request.POST['title'],
+                    content=request.POST['content'],
+                    userIdx=request.user,
+                    tag=request.POST['tag']
+                )
+                return redirect('/post/notice/{}'.format(postobj.pk))
+            else:
+                return HttpResponseBadRequest("Error During Error Processing")
         except PostNotice.DoesNotExist:
             raise Http404
     else:
-        return render(request, "posts.html", {
-            'link': '/post/notice/write/' + params,
-            'form': PostNoticeForm()
+        return render(request, "notice_write.html", {
+            'form': PostForm()
         })
 
 
@@ -389,7 +374,7 @@ def free_post(request, parents=-1):
     else:
         return render(request, "posts.html", {
             'link': '/post/notice/write/' + params,
-            'form': PostFreeForm()
+            'form': PostForm()
         })
 
 @login_required
@@ -431,7 +416,7 @@ def jokbo_post(request, parents=-1):
     else:
         return render(request, "posts.html", {
             'link': '/post/notice/write/' + params,
-            'form': PostJokboForm()
+            'form': PostForm()
         })
 
 @login_required
@@ -473,7 +458,7 @@ def share_post(request, parents=-1):
     else:
         return render(request, "posts.html", {
             'link': '/post/notice/write/' + params,
-            'form': PostShareForm()
+            'form': PostForm()
         })
 
 @login_required
@@ -515,5 +500,5 @@ def study_post(request, parents=-1):
     else:
         return render(request, "posts.html", {
             'link': '/post/notice/write/' + params,
-            'form': PostStudyForm()
+            'form': PostForm()
         })

@@ -2465,17 +2465,7 @@ var Dropzone = function (_Emitter) {
         if (typeof additionalParams === 'function') {
           additionalParams = additionalParams.call(this, files, xhr, files[0].upload.chunked ? this._getChunk(files[0], xhr) : null);
         }
-		
-		/*
-		if($(this.element).parent("form").length > 0) {
-			var extraData = $(this.element).parent("form").serializeArray();
-			for(var i=0; i<extraData.length; i++) {
-				formData.append(extraData[i].name, extraData[i].value);
-			}
-		}
-		*/
-		
-		console.log(additionalParams);
+
         for (var key in additionalParams) {
           var value = additionalParams[key];
           formData.append(key, value);
@@ -2512,16 +2502,7 @@ var Dropzone = function (_Emitter) {
         formData.append(dataBlock.name, dataBlock.data, dataBlock.filename);
       }
 
-	  for (var pair of formData.entries()) {
-		  console.log(pair[1]);
-		var field = $("<input></input>");
-		field.attr("type", "file");
-		field.attr("name", pair[0]);
-		field.attr("value", pair[1]);
-		$("form").append(field);
-	  }
-
-//      this.submitRequest(xhr, formData, files);
+      this.submitRequest(xhr, formData, files);
     }
 
     // Transforms all files with this.options.transformFile and invokes done with the transformed files when done.
