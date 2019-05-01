@@ -75,19 +75,38 @@
 
 		<!-- 여기 위까지 header 파일로 분리하면 됩니다. -->
 			
+			<style>
+			.board-view .icon { vertical-align:middle; margin-right:5px; display:inline-block; width:20px; text-align:center; }
+			.board-view .board-view-users ul { display:inline-block; }
+			.board-view .board-view-users ul li { display:inline-block; margin-right:5px; }
+			</style>
 			<div class="board-view">
 				<div class="container">
 					<h2>
-						<span class="category category-1">공지</span>
+						<span class="category category-1">교과</span>
 						<span class="post-subject">최신 브라우저의 내부 살펴보기 3 - 렌더러 프로세스의 내부 동작</span>
 					</h2>
 					<div class="board-view-user">
+						<span class="icon"><i class="fas fa-user"></i></span>
 						<span class="hakbun">17</span>
 						<span class="name">오윤석</span>
 					</div>
+					<div class="board-view-users">
+						<span class="icon"><i class="fas fa-users"></i></span>
+						<ul>
+							<li class="board-view-user">
+								<span class="hakbun">17</span>
+								<span class="name">서주원</span>
+							</li>
+							<li class="board-view-user">
+								<span class="hakbun">17</span>
+								<span class="name">박민재</span>
+							</li>
+						</ul>
+					</div>
 					<ul class="board-view-etc">
-						<li><i class="far fa-clock"></i> 2019.04.22</li>
-						<li><i class="far fa-eye"></i> 2408</li>
+						<li><i class="far fa-calendar-alt"></i>	2019.04.22 - 2019.12.31</li>
+						<li><i class="far fa-clock"></i> 수요일 3시</li>
 					</ul>
 					<div class="board-view-content">
 						<p>이 글은 <a href="https://developers.google.com/">Google Developers 사이트</a>에 공개된 <a href="https://developers.google.com/web/resources/contributors/kosamari">Mariko Kosaka</a>의 "Inside look at modern web browser"(최신 브라우저의 내부 살펴보기) 시리즈를 번역한 글입니다. 이 시리즈는 Chrome을 중심으로 최신 브라우저를 들여다봅니다. Chrome이 속도뿐만 아니라 안정성을 위해 어떤 아키텍처를 사용하는지 설명하는 것에서 시작해, 웹 페이지가 어떤 단계를 거쳐 화면에 그려지는지 설명합니다. 이와 더불어 성능 향상을 위해 웹 개발자가 고려하면 좋을 사항도 다룹니다.</p>

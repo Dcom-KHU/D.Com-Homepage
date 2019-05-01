@@ -12,12 +12,14 @@
 	<link rel="stylesheet" href="./css/style.css">
 	<link rel="stylesheet" href="./css/board_write.css">
 	<link rel="stylesheet" href="./css/dropzone.css">
+	<link rel="stylesheet" href="./css/jquery-ui.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 	<title>D.Com</title>
 	<script src="./js/jquery-3.2.1.min.js"></script>
 	<script src="./js/jquery.bxslider.min.js"></script>
 	<script src="./js/jquery.touchSwipe.min.js"></script>
 	<script src="./js/jquery.dropzone.js"></script>
+	<script src="./js/jquery-ui.min.js"></script>
 	<script src="./js/layout.js"></script>
 	<script src="./js/board_write.js"></script>
 </head>
@@ -83,11 +85,20 @@
 					<form action="#link-board-notice-write-result" class="classic-form write-form">
 						<div class="form-box">
 							<select name="category" class="bordered inline">
-								<option value="공지">공지</option>
-								<option value="행사">행사</option>
-								<option value="대회">대회</option>
-								<option value="프젝">프젝</option>
+								<option value="교과">교과</option>
+								<option value="기타">기타</option>
 							</select>
+						</div>
+						<div class="form-box">
+							<div class="col-sm-6">
+								<input type="text" name="start_date" class="bordered datepicker" required placeholder="시작일">
+							</div>
+							<div class="col-sm-6">
+								<input type="text" name="end_date" class="bordered datepicker" required placeholder="종료일">
+							</div>
+						</div>
+						<div class="form-box">
+							<input type="text" name="time" class="bordered" required placeholder="스터디 시간을 입력해주세요">
 						</div>
 						<div class="form-box">
 							<input type="text" name="subject" class="bordered" required placeholder="제목을 입력해주세요">
