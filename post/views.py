@@ -53,10 +53,30 @@ def notice_list(request, page=1):
 
     pages = ((obj_num-1) // 5) + 1
     list_var = post_obj[(page-1)*5:page*5]
+
+    if page <= 3:
+        start_page = 1
+        if pages > 5:
+            end_page = 5
+        else:
+            end_page = pages
+    elif page > pages - 2:
+        end_page = pages
+        if pages <= 5:
+            start_page = 1
+        else:
+            start_page = page - 2
+    else:
+        start_page = page - 2
+        end_page = page + 2
+
     return render(request, 'notice_list.html', {
         'posts': list_var,
-        'page': page,
-        'pages': pages
+        'current_page': page,
+        'pages': pages,
+        'start_page': start_page,
+        'end_page': end_page,
+        'range': range(start_page, end_page + 1)
     })
 
 
