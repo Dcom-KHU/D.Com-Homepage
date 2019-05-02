@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponseBadRequest
+from django.http import Http404, HttpResponseBadRequest, HttpResponseNotAllowed
 from user.models import Profile
 from post.models import PostNotice, PostFree, PostJokbo, PostShare, PostStudy
 from post.form import PostForm
@@ -31,7 +31,7 @@ def notice_detail(request, post_id):
                         list_var = list_var[:i+temp+1] + sub_comment + list_var[i+temp+1:]
                         temp += len(sub_comment)
 
-                if check == False:
+                if check is False:
                     break
 
             print(list_var)
@@ -80,6 +80,61 @@ def notice_list(request, page=1):
     })
 
 
+@login_required
+def notice_post(request):
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.isVerified is False:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        try:
+            require_keys = ('title', 'content', 'tag')
+            if all(i in request.POST for i in require_keys):
+                postobj = PostNotice.objects.create(
+                    title=request.POST['title'],
+                    content=request.POST['content'],
+                    userIdx=request.user,
+                    tag=request.POST['tag']
+                )
+                return redirect('/post/notice/{}'.format(postobj.pk))
+            else:
+                return HttpResponseBadRequest("Error During Error Processing")
+        except PostNotice.DoesNotExist:
+            raise Http404
+    else:
+        return render(request, "notice_write.html", {
+            'form': PostForm()
+        })
+
+
+@login_required
+def notice_comment(request, post_id):
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.isVerified is False:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        try:
+            require_keys = ('content', 'rootId')
+            if all(i in request.POST for i in require_keys):
+                parentPost = PostNotice.objects.get(pk=post_id)
+
+                post = PostNotice.objects.create(
+                    content=request.POST['content'],
+                    parent=parentPost,
+                    userIdx=request.user
+                )
+                return redirect('/post/notice/{}'.format(request.POST['rootId']))
+            else:
+                return HttpResponseBadRequest("Key Error")
+        except PostNotice.DoesNotExist:
+            raise Http404
+    else:
+        raise HttpResponseNotAllowed
+
+
 def share_detail(request, post_id):
     try:
         post_obj = PostShare.objects.get(pk=post_id)
@@ -104,7 +159,7 @@ def share_detail(request, post_id):
                         list_var = list_var[:i+temp+1] + sub_comment + list_var[i+temp+1:]
                         temp += len(sub_comment)
 
-                if check == False:
+                if check is False:
                     break
 
             print(list_var)
@@ -325,36 +380,6 @@ def study_list(request, page=1):
         'page': page,
         'pages': pages
     })
-
-
-@login_required
-def notice_post(request):
-    profile = Profile.objects.get(pk=request.user)
-
-    if profile.isVerified == False:
-        raise PermissionDenied
-
-    if request.method == "POST":
-        try:
-            require_keys = ('title', 'content', 'tag')
-            if all(i in request.POST for i in require_keys):
-                postobj = PostNotice.objects.create(
-                    title=request.POST['title'],
-                    content=request.POST['content'],
-                    userIdx=request.user,
-                    tag=request.POST['tag']
-                )
-                return redirect('/post/notice/{}'.format(postobj.pk))
-            else:
-                return HttpResponseBadRequest("Error During Error Processing")
-        except PostNotice.DoesNotExist:
-            raise Http404
-    else:
-        return render(request, "notice_write.html", {
-            'form': PostForm()
-        })
-
-
 
 
 @login_required
