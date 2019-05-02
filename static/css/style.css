@@ -38,7 +38,8 @@
 
 
 /* form */
-.classic-form input[type=text], .classic-form input[type=number], .classic-form input[type=password], .classic-form input[type=date], .classic-form input[type=email] { display:block; width:100%; height:40px; box-sizing:border-box; border:0; border-bottom:1px solid #ddd; padding:4px 6px; font-size:14px; margin-top:5px; }
+.classic-form input[type=text], .classic-form input[type=number], .classic-form input[type=d], .classic-form input[type=password], .classic-form input[type=date], .classic-form input[type=email], .classic-form select { display:block; width:100%; height:40px; box-sizing:border-box; border:0; border-bottom:1px solid #ddd; padding:4px 6px; font-size:14px; margin-top:5px; }
+.classic-form input[type=number]::-webkit-inner-spin-button, .classic-form input[type=number]::-webkit-outer-spin-button{ -webkit-appearance: none; margin:0; }
 .classic-form input[type=number]::-webkit-inner-spin-button, .classic-form input[type=number]::-webkit-outer-spin-button{ -webkit-appearance: none; margin:0; }
 .classic-form input[type=checkbox] { margin-top:2px; }
 .classic-form label { font-size:14px; display:block; width:100%; }
@@ -46,10 +47,15 @@
 .classic-form label.required:after { display:inline; content:"*"; }
 .classic-form textarea { display:block; width:100%; height:auto; border:1px solid #ddd; border-radius:4px; }
 .classic-form .form-box { margin-bottom:30px; }
+.classic-form .form-box:after { clear:both; content:""; visibility:hidden; display:block; }
 .classic-form .form-bordered { border:1px solid #ddd; }
 .classic-form .form-header { background-color:#f8f8f8; padding:10px 20px; }
 .classic-form .form-content { padding:10px 20px; }
 .classic-form .form-bordered .form-header { border-bottom:1px solid #ddd; }
+.classic-form input.bordered, .classic-form select.bordered { border:1px solid #ddd; border-radius:4px; }
+.classic-form input.inline, .classic-form select.inline { display:inline-block; width:auto; }
+.classic-form .django-ckeditor-widget { display:block !important; }
+.classic-form .django-ckeditor-widget .cke_reset { width:auto !important; }
 
 
 
