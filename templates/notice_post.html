@@ -58,8 +58,11 @@
 						<strong>{{ comments|length }}</strong>개 댓글
 					</div>
 					<div class="comment-write">
-						<form action="#link-board-notice-comment-write" method="post">
-							<textarea placeholder="댓글을 작성해주세요." name="comment"></textarea>
+						<form action="/post/notice/comments/{{ post.pk }}/" method="post">
+                            {% csrf_token %}
+							{{ commentForm.media }}
+                            {{ commentForm.content }}
+                            <input type="hidden" name="rootId" value="{{ post.pk }}">
 							<div class="buttons">
 								<button type="submit">작성</button>
 							</div>
@@ -67,14 +70,12 @@
 					</div>
 					<ul class="comments">
                         {% for comment in comments %}
-                            <li>작성자 : {{ comment.writer }}</li>
-                            <p>내용 : {{ comment.content|safe }}</p>
                             <li class="comment depth-{{ comment.depth }}">
                                 <div class="comment-user">
                                     <span class="hakbun">{{comment.writerStuNo}}</span>
                                     <span class="name">{{comment.writerName}}</span>
                                 </div>
-                                <div class="comment-datetime">{{ post.writedAt|timesince:comment.writedAt }}</div>
+                                <div class="comment-datetime">{{ comment.writedAt|timesince }} ago</div>
                                 <div class="comment-content">
                                     {{ comment.content|safe }}
                                 </div>
