@@ -84,7 +84,7 @@ def notice_list(request, page=1):
 def notice_post(request):
     profile = Profile.objects.get(pk=request.user)
 
-    if profile.isVerified is False:
+    if profile.isVerified != 2:
         raise PermissionDenied
 
     if request.method == "POST":
@@ -112,7 +112,7 @@ def notice_post(request):
 def notice_comment(request, post_id):
     profile = Profile.objects.get(pk=request.user)
 
-    if profile.isVerified is False:
+    if profile.isVerified == 0:
         raise PermissionDenied
 
     if request.method == "POST":
@@ -192,7 +192,7 @@ def share_list(request, page=1):
 def free_detail(request, post_id):
     profile = Profile.objects.get(pk=request.user)
 
-    if profile.isVerified == False:
+    if profile.isVerified == 0:
         raise PermissionDenied
 
     try:
