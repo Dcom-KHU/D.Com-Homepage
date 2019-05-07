@@ -1,11 +1,12 @@
 from django.contrib import admin
-from post.models import PostStudy, PostJokbo, PostAlbum, PostFree, PostStudyMember, PostNotice
-# Register your models here.
+from post.models import PostNotice, PostActivate, PostFree, PostShare, PostStudy, PostStudyMember, PostJokbo
 
-admin.site.register(PostStudyMember)
-admin.site.register(PostStudy)
-admin.site.register(PostFree)
-admin.site.register(PostJokbo)
-admin.site.register(PostAlbum)
+
 admin.site.register(PostNotice)
+admin.site.register(PostActivate)
+admin.site.register(PostFree)
+admin.site.register(PostShare)
+admin.site.register(PostStudy)
+admin.site.register(PostStudyMember)
+admin.site.register(PostJokbo)
 
