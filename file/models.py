@@ -1,6 +1,6 @@
 from django.db import models
 from board.models import Board
-from post.models import PostNotice, PostActivate, PostFree, PostShare, PostStudy, PostJokbo
+from post.models import PostNotice, PostActivity, PostFree, PostShare, PostStudy, PostJokbo
 import time
 
 
@@ -15,9 +15,9 @@ class FileNotice(models.Model):
     file = models.FileField(upload_to=make_filename)
 
 
-class FileActivate(models.Model):
+class FileActivity(models.Model):
     token = models.CharField(max_length=200)
-    post = models.ForeignKey(PostActivate, on_delete=models.CASCADE, null=True)
+    post = models.ForeignKey(PostActivity, on_delete=models.CASCADE, null=True)
     file = models.FileField(upload_to=make_filename)
 
 
