@@ -7,7 +7,7 @@ class Profile(models.Model):
     stuNo = models.CharField(max_length=3)
     phoneNum = models.CharField(max_length=20, default='010-0000-0000')
     github = models.URLField(blank=True)
-    group = models.PositiveSmallIntegerField(default=0)
+    group = models.IntegerField(default=0)
 
     def __str__(self):
         return '{} {}{}'.format(self.stuNo, self.user.first_name, self.user.last_name)

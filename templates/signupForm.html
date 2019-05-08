@@ -32,6 +32,7 @@
 			<div class="signup">
 				<div class="container">
 					<form action="#link-signup-result" class="classic-form" method="post">
+                        {% csrf_token %}
 						<div class="form-box">
 							<label for="id" class="required">
 								아이디

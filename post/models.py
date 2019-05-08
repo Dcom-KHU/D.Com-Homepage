@@ -308,6 +308,10 @@ class PostStudyMember(models.Model):
     userIdx = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=10)
 
+    def save(self, *args, **kwargs):
+        self.name = self.userIdx.first_name + self.userIdx.last_name
+        super().save(*args, **kwargs)
+
 
 class PostJokbo(models.Model):
     TAGS = (
