@@ -12,7 +12,6 @@ $(function() {
 
 	$(".write-form").on("submit", function() {
 		myDropzone.processQueue();
-		return false;
 	});
 	
 	if($(".datepicker").length > 0) {
