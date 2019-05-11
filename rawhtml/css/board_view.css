@@ -36,3 +36,10 @@
 .board-comment .comment .comment-user .name { vertical-align:middle; }
 .board-comment .comment .comment-datetime { position:absolute; top:0; right:0; font-size:14px; color:#999; }
 .board-comment .comment .comment-content { width:100%; overflow-x:hidden; margin-top:10px; }
+.board-comment .comment .comment-buttons { margin-top:10px; }
+.board-comment .comment .comment-buttons ul li { display:inline-block; }
+.board-comment .comment .comment-buttons ul li a { color:#9f9f9f; }
+.board-comment .comment .comment-reply { display:none; margin-top:10px; padding:10px; background-color:#f5f8f9; position:relative; padding-right:90px; border:1px solid #dedede; }
+.board-comment .comment .comment-reply textarea { width:100%; height:80px; border:1px solid #d0d0d0; box-sizing:border-box; padding:10px; display:block; }
+.board-comment .comment .comment-reply .buttons { position:absolute; top:10px; right:10px; }
+.board-comment .comment .comment-reply .buttons button { width:70px; height:55px; background-color:#444; color:#fff; border-radius:5px; border:0; }
