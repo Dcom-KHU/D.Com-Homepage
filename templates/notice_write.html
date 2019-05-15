@@ -1,6 +1,6 @@
 {% extends "base-with-banner.html" %}
 
-{% block description %}공지 사항 페이지 입니다.{% endblock %}
+{% block description %}{{ board_subtitle }}{% endblock %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block css %}
     <link rel="stylesheet" href="/static/css/board_write.css">
@@ -13,13 +13,13 @@
 
 
 {% block boardImg %}'/static/img/signin.jpg'{% endblock %}
-{% block boardTitle %}Notice{% endblock %}
-{% block boardSubTitle %}공지사항입니다.{% endblock %}
+{% block boardTitle %}{{ board_title }}{% endblock %}
+{% block boardSubTitle %}{{ board_subtitle }}{% endblock %}
 
 {% block contents %}
     <div class="board-write">
         <div class="container">
-            <form action="/post/notice/write/" method="post" enctype="multipart/form-data" class="classic-form write-form">
+            <form action="/post/{{ board }}/write/" method="post" enctype="multipart/form-data" class="classic-form write-form">
                 {% csrf_token %}
                 <div class="form-box">
                     <select name="tag" class="bordered inline">

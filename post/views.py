@@ -34,7 +34,10 @@ def notice_detail(request, post_id):
                 if check is False:
                     break
 
-            return render(request, 'notice_post.html', {
+            return render(request, 'notice.html', {
+                'board': 'notice',
+                'board_title': 'Notice',
+                'board_subtitle': '공지사항입니다.',
                 'post': post_obj,
                 'comments': list_var,
                 'commentForm': PostForm()
@@ -69,6 +72,9 @@ def notice_list(request, page=1):
         end_page = page + 2
 
     return render(request, 'notice_list.html', {
+        'board': 'notice',
+        'board_title': 'Notice',
+        'board_subtitle': '공지사항입니다.',
         'posts': list_var,
         'current_page': page,
         'pages': pages,
@@ -102,7 +108,10 @@ def notice_post(request):
             raise Http404
     else:
         return render(request, "notice_write.html", {
-            'form': PostForm()
+            'form': PostForm(),
+            'board': 'notice',
+            'board_title': 'Notice',
+            'board_subtitle': '공지사항 입니다.',
         })
 
 
@@ -147,10 +156,329 @@ def notice_delete(request, post_id):
 
         if post.userIdx == request.user:
             post.delete()
+            return redirect('/post/notice/list')
         else:
             raise PermissionDenied
 
     except PostNotice.DoesNotExist:
+        raise Http404
+
+
+def activity_detail(request, post_id):
+    try:
+        post_obj = PostActivity.objects.get(pk=post_id)
+        post_obj.hit += 1
+        post_obj.save()
+
+        if post_obj.parent is None:
+            comment = PostActivity.objects.filter(parent=post_obj).values()
+            list_var = list(comment)
+            depth = 0
+
+            while True:
+                temp = 0
+                depth += 1
+                check = False
+
+                for i in range(len(list_var)):
+                    if list_var[i]['depth'] == depth:
+                        check = True
+                        sub_comment = list(PostActivity.objects.filter(parent_id=list_var[i]['id']).values())
+
+                        list_var = list_var[:i+temp+1] + sub_comment + list_var[i+temp+1:]
+                        temp += len(sub_comment)
+
+                if check is False:
+                    break
+
+            return render(request, 'notice.html', {
+                'board': 'activity',
+                'board_title': 'Club Activities',
+                'board_subtitle': '동아리 활동 내역입니다.',
+                'post': post_obj,
+                'comments': list_var,
+                'commentForm': PostForm()
+            })
+        else:
+            raise PermissionDenied
+    except PostActivity.DoesNotExist:
+        raise Http404
+
+
+def activity_list(request, page=1):
+    post_obj = PostActivity.objects.filter(parent=None).order_by('-id')
+    obj_num = post_obj.count()
+
+    pages = ((obj_num-1) // 5) + 1
+    list_var = post_obj[(page-1)*5:page*5]
+
+    if page <= 3:
+        start_page = 1
+        if pages > 5:
+            end_page = 5
+        else:
+            end_page = pages
+    elif page > pages - 2:
+        end_page = pages
+        if pages <= 5:
+            start_page = 1
+        else:
+            start_page = page - 2
+    else:
+        start_page = page - 2
+        end_page = page + 2
+
+    return render(request, 'notice_list.html', {
+        'board': 'activity',
+        'board_title': 'Club Activities',
+        'board_subtitle': '동아리 활동 내역입니다.',
+        'posts': list_var,
+        'current_page': page,
+        'pages': pages,
+        'start_page': start_page,
+        'end_page': end_page,
+        'range': range(start_page, end_page + 1)
+    })
+
+
+@login_required
+def activity_post(request):
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.group != 2:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        try:
+            require_keys = ('title', 'content', 'tag')
+            if all(i in request.POST for i in require_keys):
+                post_obj = PostActivity.objects.create(
+                    title=request.POST['title'],
+                    content=request.POST['content'],
+                    userIdx=request.user,
+                    tag=request.POST['tag']
+                )
+                return redirect('/post/activity/{}'.format(post_obj.pk))
+            else:
+                return HttpResponseBadRequest("Error During Error Processing")
+        except PostActivity.DoesNotExist:
+            raise Http404
+    else:
+        return render(request, "notice_write.html", {
+            'board': 'activity',
+            'board_title': 'Club Activities',
+            'board_subtitle': '동아리 활동 내역입니다.',
+            'form': PostForm()
+        })
+
+
+@login_required
+def activity_comment(request, post_id):
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.group == 0:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        try:
+            require_keys = ('content',)
+            if all(i in request.POST for i in require_keys):
+                parent_post = PostActivity.objects.get(pk=post_id)
+
+                post = PostActivity.objects.create(
+                    content=request.POST['content'],
+                    parent=parent_post,
+                    userIdx=request.user
+                )
+
+                # root 찾는 코드
+                root = post.parent
+
+                while root.parent is not None:
+                    root = root.parent
+
+                return redirect('/post/activity/{}'.format(root.pk))
+            else:
+                return HttpResponseBadRequest("Key Error")
+        except PostActivity.DoesNotExist:
+            raise Http404
+    else:
+        raise HttpResponseNotAllowed
+
+
+@login_required
+def activity_delete(request, post_id):
+    try:
+        post = PostActivity.objects.get(pk=post_id)
+
+        if post.userIdx == request.user:
+            post.delete()
+        else:
+            raise PermissionDenied
+
+    except PostActivity.DoesNotExist:
+        raise Http404
+
+
+@login_required
+def free_detail(request, post_id):
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.group == 0:
+        raise PermissionDenied
+
+    try:
+        post_obj = PostFree.objects.get(pk=post_id)
+        post_obj.hit += 1
+        post_obj.save()
+
+        if post_obj.parent is None:
+            comment = PostFree.objects.filter(parent=post_obj).values()
+            list_var = list(comment)
+            depth = 0
+
+            while True:
+                temp = 0
+                depth += 1
+                check = False
+
+                for i in range(len(list_var)):
+                    if list_var[i]['depth'] == depth:
+                        check = True
+                        sub_comment = list(PostFree.objects.filter(parent_id=list_var[i]['id']).values())
+
+                        list_var = list_var[:i+temp+1] + sub_comment + list_var[i+temp+1:]
+                        temp += len(sub_comment)
+
+                if check is False:
+                    break
+
+            return render(request, 'notice.html', {
+                'board': 'free',
+                'board_title': 'Free Board',
+                'board_subtitle': '자유 게시판 입니다.',
+                'post': post_obj,
+                'comments': list_var,
+                'commentForm': PostForm()
+            })
+        else:
+            raise PermissionDenied
+    except PostActivity.DoesNotExist:
+        raise Http404
+
+
+def free_list(request, page=1):
+    post_obj = PostFree.objects.filter(parent=None).order_by('-id')
+    obj_num = post_obj.count()
+
+    pages = ((obj_num-1) // 5) + 1
+    list_var = post_obj[(page-1)*5:page*5]
+
+    if page <= 3:
+        start_page = 1
+        if pages > 5:
+            end_page = 5
+        else:
+            end_page = pages
+    elif page > pages - 2:
+        end_page = pages
+        if pages <= 5:
+            start_page = 1
+        else:
+            start_page = page - 2
+    else:
+        start_page = page - 2
+        end_page = page + 2
+
+    return render(request, 'notice_list.html', {
+        'board': 'free',
+        'board_title': 'Free Board',
+        'board_subtitle': '자유 게시판 입니다.',
+        'posts': list_var,
+        'current_page': page,
+        'pages': pages,
+        'start_page': start_page,
+        'end_page': end_page,
+        'range': range(start_page, end_page + 1)
+    })
+
+
+@login_required
+def free_post(request):
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.group == 0:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        try:
+            require_keys = ('title', 'content', 'tag')
+            if all(i in request.POST for i in require_keys):
+                post_obj = PostFree.objects.create(
+                    title=request.POST['title'],
+                    content=request.POST['content'],
+                    userIdx=request.user,
+                    tag=request.POST['tag']
+                )
+                return redirect('/post/free/{}'.format(post_obj.pk))
+            else:
+                return HttpResponseBadRequest("Error During Error Processing")
+        except PostFree.DoesNotExist:
+            raise Http404
+    else:
+        return render(request, "notice_write.html", {
+            'board': 'free',
+            'board_title': 'Free Board',
+            'board_subtitle': '자유 게시판 입니다.',
+            'form': PostForm()
+        })
+
+
+@login_required
+def free_comment(request, post_id):
+    profile = Profile.objects.get(pk=request.user)
+
+    if profile.group == 0:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        try:
+            require_keys = ('content',)
+            if all(i in request.POST for i in require_keys):
+                parent_post = PostFree.objects.get(pk=post_id)
+
+                post = PostFree.objects.create(
+                    content=request.POST['content'],
+                    parent=parent_post,
+                    userIdx=request.user
+                )
+
+                # root 찾는 코드
+                root = post.parent
+
+                while root.parent is not None:
+                    root = root.parent
+
+                return redirect('/post/free/{}'.format(root.pk))
+            else:
+                return HttpResponseBadRequest("Key Error")
+        except PostFree.DoesNotExist:
+            raise Http404
+    else:
+        raise HttpResponseNotAllowed
+
+
+@login_required
+def free_delete(request, post_id):
+    try:
+        post = PostFree.objects.get(pk=post_id)
+
+        if post.userIdx == request.user:
+            post.delete()
+        else:
+            raise PermissionDenied
+
+    except PostFree.DoesNotExist:
         raise Http404
 
 
@@ -187,7 +515,7 @@ def study_detail(request, post_id):
                 if check is False:
                     break
 
-            return render(request, 'notice_post.html', {
+            return render(request, 'notice.html', {
                 'post': post_obj,
                 'comments': list_var,
                 'commentForm': PostForm()
@@ -323,3 +651,5 @@ def study_join(request, post_id):
         return redirect('/post/study/{}'.format(post.pk))
     except PostStudy.DoesNotExist:
         raise Http404
+
+

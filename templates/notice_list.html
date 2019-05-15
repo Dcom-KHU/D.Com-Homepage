@@ -1,12 +1,12 @@
 {% extends "base-with-banner.html" %}
 
-{% block description %}공지 사항 페이지 입니다.{% endblock %}
+{% block description %}{{ board_subtitle }}{% endblock %}
 {% block title %}Notice - Page {{ page }}{% endblock %}
 {% block css %}<link rel="stylesheet" href="/static/css/board.css">{% endblock %}
 
 {% block boardImg %}'/static/img/signin.jpg'{% endblock %}
-{% block boardTitle %}Notice{% endblock %}
-{% block boardSubTitle %}공지사항입니다.{% endblock %}
+{% block boardTitle %}{{ board_title }}{% endblock %}
+{% block boardSubTitle %}{{ board_subtitle }}{% endblock %}
 
 {% block contents %}
 <!-- 여기 위까지 header 파일로 분리하면 됩니다. -->
@@ -17,7 +17,7 @@
                     <li class="post-article">
                         <div class="post-container">
                             <h2>
-                                <a href="/post/notice/{{ post.id }}">
+                                <a href="/post/{{ board }}/{{ post.id }}">
                                     {% if post.tag == "공지" %}
                                         <span class="category category-1">
                                             공지
@@ -43,7 +43,7 @@
                                 </a>
                             </h2>
                             <div class="post-content">
-                                <a href="/post/notice/{{ post.id }}">
+                                <a href="/post/{{ board }}/{{ post.id }}">
                                     {{ post.summary }}
                                 </a>
                             </div>
@@ -59,7 +59,7 @@
                             </ul>
                         </div> <!-- post-container -->
                         <div class="post-image">
-                            <a href="/post/notice/{{ post.id }}">
+                            <a href="/post/{{ board }}/{{ post.id }}">
                                 <img src="{{ post.imageLink }}">
                             </a>
                         </div>
@@ -67,22 +67,22 @@
                 {% endfor %}
             </ul> <!-- posts -->
             <div class="write-button">
-                <a href="/post/notice/write">글쓰기</a>
+                <a href="/post/{{ board }}/write">글쓰기</a>
             </div> <!-- write-button -->
             <div class="pager">
                 <ul>
                     {% if start_page != 1 %}
-                        <li><a href="/post/notice/list/{{ start_page|add:"-1" }}"><i class="fas fa-arrow-left"></i></a></li>
+                        <li><a href="/post/{{ board }}/list/{{ start_page|add:"-1" }}"><i class="fas fa-arrow-left"></i></a></li>
                     {% endif %}
                     {% for i in range %}
                         {% if i == current_page %}
-                            <li class="active"><a href="/post/notice/list/{{ i }}">{{ i }}</a></li>
+                            <li class="active"><a href="/post/{{ board }}/list/{{ i }}">{{ i }}</a></li>
                         {% else %}
-                            <li><a href="/post/notice/list/{{ i }}">{{ i }}</a></li>
+                            <li><a href="/post/{{ board }}/list/{{ i }}">{{ i }}</a></li>
                         {% endif %}
                     {% endfor %}
                     {% if end_page != pages %}
-                        <li><a href="/post/notice/list/{{ end_page|add:"1" }}"><i class="fas fa-arrow-right"></i></a></li>
+                        <li><a href="/post/{{ board }}/list/{{ end_page|add:"1" }}"><i class="fas fa-arrow-right"></i></a></li>
                     {% endif %}
                 </ul>
             </div> <!-- pager -->

@@ -260,6 +260,7 @@ class PostStudy(models.Model):
     link = models.CharField(max_length=50, default='', blank=True)
     startDate = models.DateField('date study started')
     endDate = models.DateField('date study ended')
+    time = models.CharField(max_length=50)
     tag = models.CharField(max_length=10, choices=TAGS, default='공지')
     depth = models.IntegerField(default=0)
     imageLink = models.CharField(max_length=200, default='/static/img/sample/document-icon.png', blank=True)
