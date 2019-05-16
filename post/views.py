@@ -515,10 +515,14 @@ def study_detail(request, post_id):
                 if check is False:
                     break
 
+            member = PostStudyMember.objects.filter(studyIdx=post_obj).values('user')
+            member_profile = Profile.objects.filter(user__in=member)
+
             return render(request, 'notice.html', {
                 'post': post_obj,
                 'comments': list_var,
-                'commentForm': PostForm()
+                'commentForm': PostForm(),
+                'member': member_profile
             })
         else:
             raise PermissionDenied

@@ -1,0 +1,94 @@
+{% extends "base-with-banner.html" %}
+
+{% block description %}{{ board_subtitle }}{% endblock %}
+{% block title %}Study - Page {{ page }}{% endblock %}
+{% block css %}<link rel="stylesheet" href="/static/css/board.css">{% endblock %}
+
+{% block boardImg %}'/static/img/signin.jpg'{% endblock %}
+{% block boardTitle %}{{ board_title }}{% endblock %}
+{% block boardSubTitle %}{{ board_subtitle }}{% endblock %}
+
+{% block contents %}
+<!-- 여기 위까지 header 파일로 분리하면 됩니다. -->
+    <div class="board">
+        <div class="container">
+            <ul class="posts">
+                {% for post in posts %}
+                    <li class="post-article">
+                        <div class="post-container">
+                            <h2>
+                                <a href="/post/{{ board }}/{{ post.id }}">
+                                    {% if post.tag == "교과" %}
+                                        <span class="category category-1">
+                                            <a href="#">교과</a>
+                                        </span>
+                                    {% elif post.tag == "데이터" %}
+                                        <span class="category category-2">
+                                            <a href="#">데이터</a>
+                                        </span>
+                                    {% elif post.tag == "프론트" %}
+                                        <span class="category category-3">
+                                            <a href="#">프론트</a>
+                                        </span>
+                                    {% elif post.tag == "백" %}
+                                        <span class="category category-4">
+                                            <a href="#">백</a>
+                                        </span>
+                                    {% else %}
+                                        <span class="category category-1">
+                                            <a href="#">기타</a>
+                                        </span>
+                                    {% endif %}
+                                    <span class="post-subject">{{ post.title }}</span>
+                                </a>
+                            </h2>
+                            <div class="post-content">
+                                <a href="/post/{{ board }}/{{ post.id }}">
+                                    {{ post.summary }}
+                                </a>
+                            </div>
+                            <ul class="post-etc">
+                                <li>
+                                    <i class="far fa-calendar-alt"></i>
+                                    {{ post.startDate }} - {{ post.endDate }}
+                                </li>
+                                <li>
+                                    <i class="far fa-clock"></i>
+                                    {{ post.time }}
+                                </li>
+                            </ul>
+                        </div> <!-- post-container -->
+                        <div class="post-image">
+                            <a href="/post/{{ board }}/{{ post.id }}">
+                                <img src="{{ post.imageLink }}">
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul> <!-- posts -->
+            <div class="write-button">
+                <a href="/post/{{ board }}/write">글쓰기</a>
+            </div> <!-- write-button -->
+            <div class="pager">
+                <ul>
+                    {% if start_page != 1 %}
+                        <li><a href="/post/{{ board }}/list/{{ start_page|add:"-1" }}"><i class="fas fa-arrow-left"></i></a></li>
+                    {% endif %}
+                    {% for i in range %}
+                        {% if i == current_page %}
+                            <li class="active"><a href="/post/{{ board }}/list/{{ i }}">{{ i }}</a></li>
+                        {% else %}
+                            <li><a href="/post/{{ board }}/list/{{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if end_page != pages %}
+                        <li><a href="/post/{{ board }}/list/{{ end_page|add:"1" }}"><i class="fas fa-arrow-right"></i></a></li>
+                    {% endif %}
+                </ul>
+            </div> <!-- pager -->
+        </div> <!-- container -->
+    </div> <!-- board -->
+
+    <!-- 여기 아래부터 footer 파일로 분리하면 됩니다. -->
+
+{% endblock %}
