@@ -518,7 +518,10 @@ def study_detail(request, post_id):
             member = PostStudyMember.objects.filter(studyIdx=post_obj).values('user')
             member_profile = Profile.objects.filter(user__in=member)
 
-            return render(request, 'notice.html', {
+            return render(request, 'study.html', {
+                'board': 'study',
+                'board_title': 'Study Board',
+                'board_subtitle': '스터디 게시판 입니다.',
                 'post': post_obj,
                 'comments': list_var,
                 'commentForm': PostForm(),
@@ -553,7 +556,10 @@ def study_list(request, page=1):
         start_page = page - 2
         end_page = page + 2
 
-    return render(request, 'notice_list.html', {
+    return render(request, 'study_list.html', {
+        'board': 'study',
+        'board_title': 'Study Board',
+        'board_subtitle': '스터디 게시판 입니다.',
         'posts': list_var,
         'current_page': page,
         'pages': pages,
@@ -586,7 +592,10 @@ def study_post(request):
         except PostStudy.DoesNotExist:
             raise Http404
     else:
-        return render(request, "notice_write.html", {
+        return render(request, "study_write.html", {
+            'board': 'study',
+            'board_title': 'Study Board',
+            'board_subtitle': '스터디 게시판 입니다.',
             'form': PostForm()
         })
 
