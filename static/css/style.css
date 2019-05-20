@@ -54,6 +54,8 @@
 .classic-form .form-bordered .form-header { border-bottom:1px solid #ddd; }
 .classic-form input.bordered, .classic-form select.bordered { border:1px solid #ddd; border-radius:4px; }
 .classic-form input.inline, .classic-form select.inline { display:inline-block; width:auto; }
+.classic-form .django-ckeditor-widget { display:block !important; }
+.classic-form .django-ckeditor-widget .cke_reset { width:auto !important; }
 
 
 
