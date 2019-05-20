@@ -38,9 +38,10 @@
 	.board .write-button { width:100%; }
 	.board .posts .post-container { width:100%; }
 	.board .posts .post-content { padding-left:120px; margin-bottom:10px; }
+	.board .posts .no-image .post-content { padding-left:0; }
 	.board .posts .post-content a { -webkit-line-clamp:4; }
 	.board .posts .post-image { width:120px; left:0; top:46px; }
-	.board .posts .post-image img { width:100px; height:70px; }
+	.board .posts .post-image img { width:100px; height:80px; }
 } 
  
 /* pc */
@@ -48,9 +49,10 @@
 	.board .posts { width:750px; }
 	.board .write-button { width:750px; }
 	.board .posts .post-container { width:-moz-calc(100% - 200px); width:-webkit-calc(100% - 200px); width:calc(100% - 200px); }
+	.board .posts .post-container.no-image { width:100%; }
 	.board .posts .post-content a { -webkit-line-clamp:2; }
 	.board .posts .post-image { width:200px; padding-left:30px; right:0; top:0; }
-	.board .posts .post-image img { width:170px; height:120px; }
+	.board .posts .post-image img { width:170px; height:136px; }
 }
 
 /* md */

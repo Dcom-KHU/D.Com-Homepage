@@ -20,6 +20,7 @@
     <div class="board-write">
         <div class="container">
             <form action="/post/{{ board }}/write/" method="post" enctype="multipart/form-data" class="classic-form write-form">
+				<input type="hidden" name="dropzone_token" id="dropzone-token" value="abcdef">
                 {% csrf_token %}
                 <div class="form-box">
                     <select name="tag" class="bordered inline">
