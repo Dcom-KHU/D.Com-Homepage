@@ -1,7 +1,7 @@
 {% extends "base-with-banner.html" %}
 
 {% block description %}{{ board_subtitle }}{% endblock %}
-{% block title %}Notice - Page {{ page }}{% endblock %}
+{% block title %}Study - Page {{ page }}{% endblock %}
 {% block css %}<link rel="stylesheet" href="/static/css/board.css">{% endblock %}
 
 {% block boardImg %}'/static/img/signin.jpg'{% endblock %}
@@ -18,25 +18,25 @@
                         <div class="post-container">
                             <h2>
                                 <a href="/post/{{ board }}/{{ post.id }}">
-                                    {% if post.tag == "공지" %}
+                                    {% if post.tag == "교과" %}
                                         <span class="category category-1">
-                                            공지
+                                            <a href="#">교과</a>
                                         </span>
-                                    {% elif post.tag == "행사" %}
+                                    {% elif post.tag == "데이터" %}
                                         <span class="category category-2">
-                                            행사
+                                            <a href="#">데이터</a>
                                         </span>
-                                    {% elif post.tag == "대회" %}
+                                    {% elif post.tag == "프론트" %}
                                         <span class="category category-3">
-                                            대회
+                                            <a href="#">프론트</a>
                                         </span>
-                                    {% elif post.tag == "프젝" %}
+                                    {% elif post.tag == "백" %}
                                         <span class="category category-4">
-                                            프젝
+                                            <a href="#">백</a>
                                         </span>
                                     {% else %}
                                         <span class="category category-1">
-                                            기타
+                                            <a href="#">기타</a>
                                         </span>
                                     {% endif %}
                                     <span class="post-subject">{{ post.title }}</span>
@@ -49,12 +49,12 @@
                             </div>
                             <ul class="post-etc">
                                 <li>
-                                    <i class="far fa-clock"></i>
-                                    {{ post.writedAt|date:'Y-m-d, f A '}}
+                                    <i class="far fa-calendar-alt"></i>
+                                    {{ post.startDate }} - {{ post.endDate }}
                                 </li>
                                 <li>
-                                    <i class="far fa-eye"></i>
-                                    {{ post.hit }}
+                                    <i class="far fa-clock"></i>
+                                    {{ post.time }}
                                 </li>
                             </ul>
                         </div> <!-- post-container -->

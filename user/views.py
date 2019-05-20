@@ -158,10 +158,10 @@ def edit(request):
 def verify(request, id):
     profile = Profile.objects.get(user=request.user)
     page = request.GET.get('page', '1')
-    if profile.isVerified:
+    if profile.isVerified == 2:
         try:
             verified_profile = Profile.objects.get(user_id=id)
-            verified_profile.isVerified = True
+            verified_profile.isVerified = 1
             verified_profile.save()
             return redirect('/user/list/{}'.format(page))
         except Profile.DoesNotExist:
@@ -205,10 +205,13 @@ def findId(request):
             try:
                 user = User.objects.get(email=request.POST['email'])
                 username = user.username
-                username
+
+                for i in range(len(username) // 2, len(username)):
+                    username[i] = '*'
+
                 return render(request, 'result.html', {
                     'message': '{} 와 연결된 계정의 ID는 다음과 같습니다.'.format(request.POST['email']),
-                    'result': user.username
+                    'result': username
                 })
             except User.DoesNotExist:
                 return render(request, 'findId.html', {
@@ -243,7 +246,6 @@ def findPassword(request):
                 return render(request, 'findPassword.html', {
                     'message': '입력 하신 정보가 일치 하지 않습니다, 다시 입력 해 주세요.'
                 })
-
 
     return render(request, 'findPassword.html', {
         'message': '임시 비밀번호 발급을 위해 아이디와 이메일을 입력 해 주세요.'

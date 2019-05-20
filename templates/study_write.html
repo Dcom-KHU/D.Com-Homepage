@@ -23,14 +23,26 @@
                 {% csrf_token %}
                 <div class="form-box">
                     <select name="tag" class="bordered inline">
-                        <option value="공지">공지</option>
-                        <option value="행사">행사</option>
-                        <option value="대회">대회</option>
-                        <option value="프젝">프젝</option>
+                        <option value="교과">교과</option>
+                        <option value="데이터">데이터</option>
+                        <option value="프론트">프론트</option>
+                        <option value="백">백</option>
+                        <option value="기타">기타</option>
                     </select>
                 </div>
                 <div class="form-box">
-                    <input type="text" name="title" class="bordered" required placeholder="제목을 입력해주세요">
+                    <div class="col-sm-6">
+                        <input type="text" name="start_date" class="bordered datepicker" required placeholder="시작일">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" name="end_date" class="bordered datepicker" required placeholder="종료일">
+                    </div>
+                </div>
+                <div class="form-box">
+                    <input type="text" name="time" class="bordered" required placeholder="스터디 시간을 입력해주세요">
+                </div>
+                <div class="form-box">
+                    <input type="text" name="subject" class="bordered" required placeholder="제목을 입력해주세요">
                 </div>
                 <div class="form-box">
                     {{ form.media }}

@@ -1,0 +1,92 @@
+{% extends "base-with-banner.html" %}
+
+{% block description %}{{ post.summary }}{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block css %}<link rel="stylesheet" href="/static/css/board_view.css">{% endblock %}
+
+{% block boardImg %}'/static/img/signin.jpg'{% endblock %}
+{% block boardTitle %}{{ board_title }}{% endblock %}
+{% block boardSubTitle %}{{ board_subtitle }}{% endblock %}
+
+{% block contents %}
+<!-- 여기 위까지 header 파일로 분리하면 됩니다. -->
+    <div class="board-view">
+            <div class="container">
+                <h2>
+                    {% if post.tag == "공지" %}
+                        <span class="category category-1">
+                            <a href="#">공지</a>
+                        </span>
+                    {% elif post.tag == "행사" %}
+                        <span class="category category-2">
+                            <a href="#">행사</a>
+                        </span>
+                    {% elif post.tag == "대회" %}
+                        <span class="category category-3">
+                            <a href="#">대회</a>
+                        </span>
+                    {% elif post.tag == "프젝" %}
+                        <span class="category category-4">
+                            <a href="#">프젝</a>
+                        </span>
+                    {% else %}
+                        <span class="category category-1">
+                            <a href="#">기타</a>
+                        </span>
+                    {% endif %}
+                    <span class="post-subject">{{ post.title }}</span>
+                </h2>
+                <div class="board-view-user">
+                    <span class="hakbun">{{ post.writerStuNo }}</span>
+                    <span class="name">{{ post.writerName }}</span>
+                </div>
+                <ul class="board-view-etc">
+                    <li><i class="far fa-clock"></i> {{ post.writedAt|date:'Y-m-d, f A '}}</li>
+                    <li><i class="far fa-eye"></i> {{ post.hit }}</li>
+                </ul>
+                <div class="board-view-content">
+                    {{ post.content|safe }}
+                </div>
+                <div class="board-view-buttons">
+                    <a href="/post/{{ board }}/list">목록</a>
+                </div>
+            </div> <!-- container -->
+        </div> <!-- board-view -->
+        <div class="board-comment">
+            <div class="container">
+                <div class="comment-count">
+                    <strong>{{ comments|length }}</strong>개 댓글
+                </div>
+                <div class="comment-write">
+                    <form action="/post/{{ board }}/comments/{{ post.pk }}/" method="post">
+                        {% csrf_token %}
+                        {{ commentForm.media }}
+                        {{ commentForm.content }}
+                        <input type="hidden" name="rootId" value="{{ post.pk }}">
+                        <div class="buttons">
+                            <button type="submit">작성</button>
+                        </div>
+                    </form>
+                </div>
+                <ul class="comments">
+                    {% for comment in comments %}
+                        <li class="comment depth-{{ comment.depth }}">
+                            <div class="comment-user">
+                                <span class="hakbun">{{comment.writerStuNo}}</span>
+                                <span class="name">{{comment.writerName}}</span>
+                            </div>
+                            <div class="comment-datetime">{{ comment.writedAt|timesince }} ago</div>
+                            <div class="comment-content">
+                                {{ comment.content|safe }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    <!-- 여기 아래부터 footer 파일로 분리하면 됩니다. -->
+
+    </div> <!-- content -->
+
+{% endblock %}
