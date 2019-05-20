@@ -58,11 +58,13 @@
                                 </li>
                             </ul>
                         </div> <!-- post-container -->
+                        {% if post.imageLink != "/static/img/sample/document-icon.png" %}
                         <div class="post-image">
                             <a href="/post/{{ board }}/{{ post.id }}">
                                 <img src="{{ post.imageLink }}">
                             </a>
                         </div>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul> <!-- posts -->

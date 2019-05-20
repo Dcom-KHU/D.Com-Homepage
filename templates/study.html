@@ -15,23 +15,23 @@
                 <h2>
                     {% if post.tag == "교과" %}
                         <span class="category category-1">
-                            <a href="#">교과</a>
+                            교과
                         </span>
                     {% elif post.tag == "데이터" %}
                         <span class="category category-2">
-                            <a href="#">데이터</a>
+                            데이터
                         </span>
                     {% elif post.tag == "프론트" %}
                         <span class="category category-3">
-                            <a href="#">프론트</a>
+                            프론트
                         </span>
                     {% elif post.tag == "백" %}
                         <span class="category category-4">
-                            <a href="#">백</a>
+                            백
                         </span>
                     {% else %}
                         <span class="category category-1">
-                            <a href="#">기타</a>
+                            기타
                         </span>
                     {% endif %}
                     <span class="post-subject">{{ post.title }}</span>

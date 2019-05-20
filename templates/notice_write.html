@@ -20,14 +20,14 @@
     <div class="board-write">
         <div class="container">
             <form action="/post/{{ board }}/write/" method="post" enctype="multipart/form-data" class="classic-form write-form">
-				<input type="hidden" name="dropzone_token" id="dropzone-token" value="abcdef">
                 {% csrf_token %}
+                <input type="hidden" name="{{ random_str }}" id="dropzone-token" value="abcdef">
                 <div class="form-box">
                     <select name="tag" class="bordered inline">
                         <option value="공지">공지</option>
                         <option value="행사">행사</option>
                         <option value="대회">대회</option>
-                        <option value="프젝">프젝</option>
+                        <option value="공모전">공모전</option>
                     </select>
                 </div>
                 <div class="form-box">

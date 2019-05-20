@@ -79,7 +79,7 @@
                         <li class="col-xs-6 col-sm-4 col-lg-3">
                             <div class="inner">
                                 <div class="thumbnail">
-                                    <a href="/post/notice/{{activity.id}}/"><img src="{{activity.imageLink}}"></a>
+                                    <a href="/post/activity/{{activity.id}}/"><img src="{{activity.imageLink}}"></a>
                                 </div>
                                 <div class="list-content">
                                     {% if activity.tag == "공지" %}
@@ -136,7 +136,7 @@
                     <ul>
                         {% for share in shares %}
                         <li>
-                            <a href="#link-board-info-view">{{ share.title }}</a>
+                            <a href="/post/share/{{ notice.id }}/">{{ share.title }}</a>
                             <span class="date">{{ share.writedAt|timesince|time_ego_to_korean }}</span>
                         </li>
                         {% endfor %}
@@ -148,7 +148,7 @@
                 <ul>
                     {% for free in frees %}
                     <li>
-                        <a href="#link-board-info-view">{{ free.title }}</a>
+                        <a href="/post/free/{{ notice.id }}/">{{ free.title }}</a>
                         <span class="date">{{ free.writedAt|timesince|time_ego_to_korean }}</span>
                     </li>
                     {% endfor %}
