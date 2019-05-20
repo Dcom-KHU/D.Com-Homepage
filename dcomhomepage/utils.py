@@ -1,4 +1,6 @@
 import time
+import random
+import string
 from bs4 import BeautifulSoup
 
 def getfilename(filename):
@@ -29,3 +31,6 @@ def extractText(html):
     soup = BeautifulSoup(html, 'html.parser')
     return soup.text
 
+
+def make_random_string():
+    return ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(20))

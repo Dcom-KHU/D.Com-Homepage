@@ -15,6 +15,14 @@ def index(request):
     })
 
 
+def policy(request):
+    return render(request, 'policy.html', {})
+
+
+def privacy(request):
+    return render(request, 'privacy.html', {})
+
+
 """
 def page404(request):
     error_dict = {
