@@ -4,7 +4,16 @@
 {% block description %}{{ post.summary }}{% endblock %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block css %}<link rel="stylesheet" href="/static/css/board_view.css">{% endblock %}
-{% block scripts %}<script src="/static/js/board_view.js"></script>{% endblock %}
+{% block scripts %}
+    <script src="/static/js/board_view.js"></script>
+    <script>
+        function delete_post(post_id) {
+            if (confirm("정말로 삭제 하시겠습니까?")) {
+                window.location.replace('/post/notice/delete/' + post_id)
+            }
+        }
+    </script>
+{% endblock %}
 {% block boardImg %}'/static/img/signin.jpg'{% endblock %}
 {% block boardTitle %}{{ board_title }}{% endblock %}
 {% block boardSubTitle %}{{ board_subtitle }}{% endblock %}
@@ -50,6 +59,9 @@
                 </div>
                 <div class="board-view-buttons">
                     <a href="/post/{{ board }}/list">목록</a>
+                    {% if post.userIdx == request.user %}
+                        <a onclick="delete_post({{ post.id }})">삭제</a>
+                    {% endif %}
                 </div>
             </div> <!-- container -->
         </div> <!-- board-view -->
@@ -79,6 +91,7 @@
                             <div class="comment-content">
                                 {{ comment.content|safe }}
                             </div>
+                        {{ comment.userIdx }}
                             <div class="comment-buttons">
 								<ul>
 									<li>
@@ -87,6 +100,14 @@
 											답글쓰기
 										</a>
 									</li>
+                                    {% if comment.userIdx_id == request.user.pk %}
+                                    <li style="padding-left: 10px;">
+										<a onclick="delete_post({{ comment.id }})" style="cursor: pointer">
+											<i class="far fa-trash-alt"></i>
+											삭제하기
+										</a>
+									</li>
+                                    {% endif %}
 								</ul>
 							</div>
 							<div class="comment-reply">

@@ -125,6 +125,7 @@
                     <ul>
                         {% for notice in notices %}
                         <li>
+                            <strong>[{{ notice.tag }}]</strong>
                             <a href="/post/notice/{{ notice.id }}/">{{ notice.title }}</a>
                             <span class="date">{{ notice.writedAt|timesince|time_ego_to_korean }}</span>
                         </li>
@@ -136,6 +137,7 @@
                     <ul>
                         {% for share in shares %}
                         <li>
+                            <strong>[{{ notice.tag }}]</strong>
                             <a href="/post/share/{{ notice.id }}/">{{ share.title }}</a>
                             <span class="date">{{ share.writedAt|timesince|time_ego_to_korean }}</span>
                         </li>
@@ -148,6 +150,7 @@
                 <ul>
                     {% for free in frees %}
                     <li>
+                        <strong>[{{ notice.tag }}]</strong>
                         <a href="/post/free/{{ notice.id }}/">{{ free.title }}</a>
                         <span class="date">{{ free.writedAt|timesince|time_ego_to_korean }}</span>
                     </li>

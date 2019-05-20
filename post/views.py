@@ -5,6 +5,8 @@ from django.http import Http404, HttpResponseBadRequest, HttpResponseNotAllowed
 from user.models import Profile
 from post.models import PostNotice, PostActivity, PostFree, PostJokbo, PostShare, PostStudy, PostStudyMember
 from post.form import PostForm
+from file.models import FileNotice, FileActivity, FileFree, FileJokbo, FileShare, FileStudy
+from dcomhomepage.utils import make_random_string
 
 
 def notice_detail(request, post_id):
@@ -33,6 +35,8 @@ def notice_detail(request, post_id):
 
                 if check is False:
                     break
+
+            print(list_var)
 
             return render(request, 'notice.html', {
                 'board': 'notice',
@@ -101,6 +105,7 @@ def notice_post(request):
                     userIdx=request.user,
                     tag=request.POST['tag']
                 )
+
                 return redirect('/post/notice/{}'.format(post_obj.pk))
             else:
                 return HttpResponseBadRequest("Error During Error Processing")
@@ -112,6 +117,7 @@ def notice_post(request):
             'board': 'notice',
             'board_title': 'Notice',
             'board_subtitle': '공지사항 입니다.',
+            'random_str': make_random_string()
         })
 
 
@@ -153,10 +159,20 @@ def notice_comment(request, post_id):
 def notice_delete(request, post_id):
     try:
         post = PostNotice.objects.get(pk=post_id)
+        parent = post.parent
 
         if post.userIdx == request.user:
-            post.delete()
-            return redirect('/post/notice/list')
+            if parent is not None:
+                while True:
+                    if parent.parent is None:
+                        break
+                    else:
+                        parent = parent.parent
+                post.delete()
+                return redirect('/post/notice/{}'.format(parent.pk))
+            else:
+                post.delete()
+                return redirect('/post/notice/list')
         else:
             raise PermissionDenied
 
@@ -310,11 +326,20 @@ def activity_comment(request, post_id):
 def activity_delete(request, post_id):
     try:
         post = PostActivity.objects.get(pk=post_id)
+        parent = post.parent
 
         if post.userIdx == request.user:
-            post.delete()
-        else:
-            raise PermissionDenied
+            if parent is not None:
+                while True:
+                    if parent.parent is None:
+                        break
+                    else:
+                        parent = parent.parent
+                post.delete()
+                return redirect('/post/activity/{}'.format(parent.pk))
+            else:
+                post.delete()
+                return redirect('/post/activity/list')
 
     except PostActivity.DoesNotExist:
         raise Http404
@@ -472,11 +497,20 @@ def free_comment(request, post_id):
 def free_delete(request, post_id):
     try:
         post = PostFree.objects.get(pk=post_id)
+        parent = post.parent
 
         if post.userIdx == request.user:
-            post.delete()
-        else:
-            raise PermissionDenied
+            if parent is not None:
+                while True:
+                    if parent.parent is None:
+                        break
+                    else:
+                        parent = parent.parent
+                post.delete()
+                return redirect('/post/free/{}'.format(parent.pk))
+            else:
+                post.delete()
+                return redirect('/post/free/list')
 
     except PostFree.DoesNotExist:
         raise Http404
@@ -578,13 +612,16 @@ def study_post(request):
 
     if request.method == "POST":
         try:
-            require_keys = ('title', 'content', 'tag')
+            require_keys = ('title', 'content', 'tag', 'start_date', 'end_date', 'time', 'subject')
             if all(i in request.POST for i in require_keys):
                 post_obj = PostStudy.objects.create(
                     title=request.POST['title'],
                     content=request.POST['content'],
                     userIdx=request.user,
-                    tag=request.POST['tag']
+                    tag=request.POST['tag'],
+                    startDate=request.POST['start_date'],
+                    endDate=request.POST['end_date'],
+                    time=request.POST['time']
                 )
                 return redirect('/post/study/{}'.format(post_obj.pk))
             else:
@@ -592,11 +629,13 @@ def study_post(request):
         except PostStudy.DoesNotExist:
             raise Http404
     else:
+
         return render(request, "study_write.html", {
             'board': 'study',
             'board_title': 'Study Board',
             'board_subtitle': '스터디 게시판 입니다.',
-            'form': PostForm()
+            'form': PostForm(),
+            'random_str': make_random_string()
         })
 
 
@@ -638,9 +677,20 @@ def study_comment(request, post_id):
 def study_delete(request, post_id):
     try:
         post = PostStudy.objects.get(pk=post_id)
+        parent = post.parent
 
         if post.userIdx == request.user:
-            post.delete()
+            if parent is not None:
+                while True:
+                    if parent.parent is None:
+                        break
+                    else:
+                        parent = parent.parent
+                post.delete()
+                return redirect('/post/study/{}'.format(parent.pk))
+            else:
+                post.delete()
+                return redirect('/post/study/list')
         else:
             raise PermissionDenied
 
