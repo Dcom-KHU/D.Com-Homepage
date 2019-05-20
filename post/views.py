@@ -518,7 +518,7 @@ def free_delete(request, post_id):
 
 @login_required
 def study_detail(request, post_id):
-    profile = Profile.objects.get(pk=post_id)
+    profile = Profile.objects.get(pk=request.user)
 
     if profile.group == 0:
         raise PermissionDenied
@@ -549,7 +549,7 @@ def study_detail(request, post_id):
                 if check is False:
                     break
 
-            member = PostStudyMember.objects.filter(studyIdx=post_obj).values('user')
+            member = PostStudyMember.objects.filter(studyIdx=post_obj).values('userIdx')
             member_profile = Profile.objects.filter(user__in=member)
 
             return render(request, 'study.html', {
@@ -612,7 +612,7 @@ def study_post(request):
 
     if request.method == "POST":
         try:
-            require_keys = ('title', 'content', 'tag', 'start_date', 'end_date', 'time', 'subject')
+            require_keys = ('title', 'content', 'tag', 'start_date', 'end_date', 'time')
             if all(i in request.POST for i in require_keys):
                 post_obj = PostStudy.objects.create(
                     title=request.POST['title'],
