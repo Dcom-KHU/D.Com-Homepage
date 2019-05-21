@@ -2470,8 +2470,7 @@ var Dropzone = function (_Emitter) {
 			formData.append("dropzone_token", $("#dropzone-token").val());
 		}
 		
-		console.log(additionalParams);
-        for (var key in additionalParams) {
+		for (var key in additionalParams) {
           var value = additionalParams[key];
           formData.append(key, value);
         }
