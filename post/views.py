@@ -97,7 +97,7 @@ def notice_post(request):
 
     if request.method == "POST":
         try:
-            require_keys = ('title', 'content', 'tag')
+            require_keys = ('title', 'content', 'tag', 'dropzone-token')
             if all(i in request.POST for i in require_keys):
                 post_obj = PostNotice.objects.create(
                     title=request.POST['title'],
@@ -105,6 +105,9 @@ def notice_post(request):
                     userIdx=request.user,
                     tag=request.POST['tag']
                 )
+                file_list = FileNotice.objects.filter(token=request.POST['dropzone-token'])
+                if len(file_list) != 0:
+                    file_list.update(post=post_obj)
 
                 return redirect('/post/notice/{}'.format(post_obj.pk))
             else:

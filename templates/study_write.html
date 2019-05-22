@@ -21,7 +21,7 @@
 {% block contents %}
     <div class="board-write">
         <div class="container">
-            <form action="/post/{{ board }}/write/" method="post" enctype="multipart/form-data" class="classic-form write-form">
+            <form action="/post/{{ board }}/write/" method="post" enctype="multipart/form-data" class="classic-form write-form" data-file-action="#link-board-notice-write-fileupload">
                 {% csrf_token %}
                 <input type="hidden" name="{{ random_str }}" id="dropzone-token" value="abcdef">
                 <div class="form-box">

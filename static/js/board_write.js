@@ -7,7 +7,7 @@ $(function() {
 		uploadMultiple:true,
 		parallelUploads:100,
 		maxFiles:100,
-		url: "#link-board-notice-write-fileupload"
+		url: $("#dropzone").parents("form").attr("data-file-action")
 	});
 
 	$(".write-form").on("submit", function() {

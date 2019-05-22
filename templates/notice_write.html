@@ -19,9 +19,9 @@
 {% block contents %}
     <div class="board-write">
         <div class="container">
-            <form action="/post/{{ board }}/write/" method="post" enctype="multipart/form-data" class="classic-form write-form">
+            <form action="/post/{{ board }}/write/" method="post" enctype="multipart/form-data" class="classic-form write-form" data-file-action="/file/notice/">
                 {% csrf_token %}
-                <input type="hidden" name="{{ random_str }}" id="dropzone-token" value="abcdef">
+                <input type="hidden" name="dropzone-token" id="dropzone-token" value="{{ random_str }}">
                 <div class="form-box">
                     <select name="tag" class="bordered inline">
                         <option value="공지">공지</option>
