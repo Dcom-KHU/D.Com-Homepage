@@ -1,10 +1,26 @@
 from django.shortcuts import render
-from post.models import PostNotice
+from post.models import PostNotice, PostActivity, PostShare, PostFree
 
 
 def index(request):
-    posts = PostNotice.objects.filter(parent=None).order_by('-id')[:8]
-    return render(request, 'index.html', {'posts': posts})
+    activities = PostActivity.objects.filter(parent=None).order_by('-id')[:8]
+    notices = PostNotice.objects.filter(parent=None).order_by('-id')[:5]
+    shares = PostShare.objects.filter(parent=None).order_by('-id')[:5]
+    frees = PostFree.objects.filter(parent=None).order_by('-id')[:5]
+    return render(request, 'index.html', {
+        'activities': activities,
+        'notices': notices,
+        'shares': shares,
+        'frees': frees
+    })
+
+
+def policy(request):
+    return render(request, 'policy.html', {})
+
+
+def privacy(request):
+    return render(request, 'privacy.html', {})
 
 
 """

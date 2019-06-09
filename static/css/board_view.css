@@ -6,13 +6,13 @@
 .board-view .board-view-etc li:nth-child(n+2) { margin-left:20px; }
 .board-view .board-view-content { margin-top:40px; width:100%; overflow-x:hidden; }
 .board-view .post-subject { vertical-align:middle; }
-.board-view .category { display:inline-block; vertical-align:middle; width:56px; height:32px; box-sizing:border-box; padding:6px 12px; border-radius:6px; font-size:16px; margin-right:3px; color:#fff; }
+.board-view .category { display:inline-block; vertical-align:middle; width:56px; height:32px; box-sizing:border-box; padding-top:4.5px; padding-bottom:4.5px; text-align:center; border-radius:6px; font-size:16px; margin-right:3px; color:#fff; }
 .board-view .category-1 { background-color:#a20f16; }
 .board-view .category-2 { background-color:#014f99; }
 .board-view .category-3 { background-color:#ff8a00; }
 .board-view .category-4 { background-color:#037513; }
-.board-view .board-view-user { margin-top:10px; font-size:16px; }
-.board-view .board-view-user .hakbun { display:inline-block; width:20px; height:20px; vertical-align:middle; background-color:#ddd; }
+.board-view .board-view-user { margin-top:10px; font-size:16px; font-weight:300; }
+.board-view .board-view-user .hakbun { display:inline-block; width:20px; height:20px; vertical-align:middle; text-align:center; background-color:#ddd; font-size:14px; }
 .board-view .board-view-user .name { vertical-align:middle; }
 .board-view .board-view-buttons { margin-top:10px; text-align:right; }
 .board-view .board-view-buttons a { width:auto; height:30px; padding:5px 10px; box-sizing:border-box; display:inline-block; background-color:#A748FF; color:#fff; border:0; }
@@ -32,8 +32,8 @@
 .board-comment .comments .depth-4 { padding-left:80px; }
 .board-comment .comments .depth-5 { padding-left:100px; }
 .board-comment .comment { position:relative; margin-top:20px; }
-.board-comment .comment .comment-user { font-size:16px; }
-.board-comment .comment .comment-user .hakbun { display:inline-block; width:20px; height:20px; vertical-align:middle; background-color:#ddd; }
+.board-comment .comment .comment-user { font-size:16px; font-weight:300; }
+.board-comment .comment .comment-user .hakbun { display:inline-block; width:20px; height:20px; vertical-align:middle; text-align:center; background-color:#ddd; font-size:14px; }
 .board-comment .comment .comment-user .name { vertical-align:middle; }
 .board-comment .comment .comment-datetime { position:absolute; top:0; right:0; font-size:14px; color:#999; }
 .board-comment .comment .comment-content { width:100%; overflow-x:hidden; margin-top:10px; }

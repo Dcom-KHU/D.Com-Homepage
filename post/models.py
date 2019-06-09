@@ -9,6 +9,13 @@ import os
 
 
 class PostNotice(models.Model):
+    TAGS = (
+        ('공지', '공지'),
+        ('행사', '행사'),
+        ('대회', '대회'),
+        ('공모전', '공모전'),
+    )
+
     # blank=True : Form 사용 시 입력 안해도 오류 X
     # null=True : Foreign Key가 null 값을 가져도 되게 함
     title = models.CharField(max_length=50, blank=True, default='')
@@ -92,33 +99,33 @@ class PostActivity(models.Model):
         return "{} {}: {}".format(self.writerStuNo, self.writerName, self.title)
 
     def save(self, *args, **kwargs):
-        img_link = extractImage(self.content)
-
-        if img_link is not None:
-            with open(settings.BASE_DIR + img_link, 'rb') as f:
-                im = Image.open(io.BytesIO(f.read()))
-                size = im.size
-                if size[0] > size[1] * 1.25:
-                    top = 0
-                    bottom = size[1]
-                    left = size[0] / 2 - size[1] * 0.625
-                    right = size[0] / 2 + size[1] * 0.625
-                else:
-                    top = size[1] / 2 - size[0] * (1 / 1.25) * 0.5
-                    bottom = size[1] / 2 + size[0] * (1 / 1.25) * 0.5
-                    left = 0
-                    right = size[0]
-                croped = im.crop((left, top, right, bottom))
-                croped.thumbnail((125, 100))
-                link = 'uploads/thumbnail/' + os.path.basename(f.name)
-                croped.convert('RGB').save(link, "JPEG", quality=200)
-                self.imageLink = '/' + link
-
         profile = Profile.objects.get(user=self.userIdx)
 
         if self.parent is not None:
             self.title = 'Comments'
             self.depth = self.parent.depth + 1
+        else:
+            img_link = extractImage(self.content)
+
+            if img_link is not None:
+                with open(settings.BASE_DIR + img_link, 'rb') as f:
+                    im = Image.open(io.BytesIO(f.read()))
+                    size = im.size
+                    if size[0] > size[1] * 1.25:
+                        top = 0
+                        bottom = size[1]
+                        left = size[0] / 2 - size[1] * 0.625
+                        right = size[0] / 2 + size[1] * 0.625
+                    else:
+                        top = size[1] / 2 - size[0] * (1 / 1.25) * 0.5
+                        bottom = size[1] / 2 + size[0] * (1 / 1.25) * 0.5
+                        left = 0
+                        right = size[0]
+                    croped = im.crop((left, top, right, bottom))
+                    croped = croped.resize((250, 200), Image.ANTIALIAS) ##
+                    link = 'uploads/thumbnail/' + os.path.basename(f.name)
+                    croped.convert('RGB').save(link, "JPEG", quality=90)
+                    self.imageLink = '/' + link
 
         self.writerStuNo = profile.stuNo
         self.writerName = self.userIdx.first_name + self.userIdx.last_name
@@ -183,8 +190,7 @@ class PostShare(models.Model):
         ('프론트', '프론트'),
         ('서버', '서버'),
         ('데이터', '데이터'),
-        ('리눅스', '리눅스'),
-        ('개발', '개발'),
+        ('클라우드', '클라우드'),
         ('기타', '기타'),
     )
 

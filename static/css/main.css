@@ -9,23 +9,28 @@
 .latest-gallery-list .slide-right { right:-40px; }
 .latest-gallery-list .thumbnail img { width:100%; }
 .latest-gallery-list .list-content { font-size:0; margin-top:10px; }
-.latest-gallery-list .list-content .category { display:inline-block; vertical-align:middle; width:56px; height:32px; box-sizing:border-box; padding:6px 12px; border-radius:6px; font-size:16px; margin-right:8px; }
+.latest-gallery-list .list-content .category { display:inline-block; vertical-align:middle; width:56px; height:32px; font-weight:300; box-sizing:border-box; padding-top:4.5px; padding-bottom:4.5px; text-align:center; border-radius:6px; font-size:16px; margin-right:8px; }
 .latest-gallery-list .list-content .category a { color:#fff; }
 .latest-gallery-list .list-content .category-1 { background-color:#a20f16; }
 .latest-gallery-list .list-content .category-2 { background-color:#014f99; }
 .latest-gallery-list .list-content .category-3 { background-color:#ff8a00; }
 .latest-gallery-list .list-content .category-4 { background-color:#037513; }
-.latest-gallery-list .list-content .title { display:inline-block; vertical-align:middle; width:-moz-calc(100% - 64px); width:-webkit-calc(100% - 64px); width:calc(100% - 64px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; word-break:break-all; font-size:16px; }
+.latest-gallery-list .list-content .title { display:inline-block; vertical-align:middle; width:-moz-calc(100% - 64px); width:-webkit-calc(100% - 64px); width:calc(100% - 64px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; word-break:break-all; font-size:16px; font-weight:300; }
 
 .latest-board { margin-top:40px; }
 .latest-board ul { margin-top:10px; }
 .latest-board ul li { margin-top:5px; padding-right:70px; position:relative; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; word-break:break-all; padding-left:15px; }
 .latest-board ul li:before { position:absolute; left:0; top:8px; width:4px; height:4px; content:""; border-radius:50%; background-color:#aaa; }
-.latest-board ul li a { font-size:16px; }
+.latest-board ul li a { font-size:16px; font-weight:300; }
 .latest-board ul li .date { position:absolute; top:1px; right:0; width:60px; text-align:right; color:#aaa; }
 
 /* pc */
 @media (min-width:768px) {
 	.latest-board.col-sm-6:first-child { padding:0 20px 0 15px; }
 	.latest-board.col-sm-6:last-child { padding:0 15px 0 20px; }
+}
+
+/* mobile */
+@media (max-width:767px) {
+	.latest-board.col-sm-6 { padding-left:15px; padding-right:15px; }
 }

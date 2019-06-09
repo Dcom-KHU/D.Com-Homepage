@@ -5,10 +5,12 @@
 {% block css %}
     <link rel="stylesheet" href="/static/css/board_write.css">
     <link rel="stylesheet" href="/static/css/dropzone.css">
+    <link rel="stylesheet" href="/static/css/jquery-ui.min.css">
 {% endblock %}
 {% block scripts %}
     <script src="/static/js/jquery.dropzone.js"></script>
     <script src="/static/js/board_write.js"></script>
+    <script src="/static/js/jquery-ui.min.js"></script>
 {% endblock %}
 
 
@@ -19,8 +21,9 @@
 {% block contents %}
     <div class="board-write">
         <div class="container">
-            <form action="/post/{{ board }}/write/" method="post" enctype="multipart/form-data" class="classic-form write-form">
+            <form action="/post/{{ board }}/write/" method="post" enctype="multipart/form-data" class="classic-form write-form" data-file-action="#link-board-notice-write-fileupload">
                 {% csrf_token %}
+                <input type="hidden" name="{{ random_str }}" id="dropzone-token" value="abcdef">
                 <div class="form-box">
                     <select name="tag" class="bordered inline">
                         <option value="교과">교과</option>
@@ -42,7 +45,7 @@
                     <input type="text" name="time" class="bordered" required placeholder="스터디 시간을 입력해주세요">
                 </div>
                 <div class="form-box">
-                    <input type="text" name="subject" class="bordered" required placeholder="제목을 입력해주세요">
+                    <input type="text" name="title" class="bordered" required placeholder="제목을 입력해주세요">
                 </div>
                 <div class="form-box">
                     {{ form.media }}

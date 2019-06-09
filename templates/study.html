@@ -1,9 +1,19 @@
 {% extends "base-with-banner.html" %}
+{% load post_timefilter %}
 
 {% block description %}{{ post.summary }}{% endblock %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block css %}<link rel="stylesheet" href="/static/css/board_view.css">{% endblock %}
-
+{% block scripts %}
+    <script src="/static/js/board_view.js"></script>
+    <script>
+        function delete_post(post_id) {
+            if (confirm("정말로 삭제 하시겠습니까?")) {
+                window.location.replace('/post/study/delete/' + post_id)
+            }
+        }
+    </script>
+{% endblock %}
 {% block boardImg %}'/static/img/signin.jpg'{% endblock %}
 {% block boardTitle %}{{ board_title }}{% endblock %}
 {% block boardSubTitle %}{{ board_subtitle }}{% endblock %}
@@ -15,23 +25,23 @@
                 <h2>
                     {% if post.tag == "교과" %}
                         <span class="category category-1">
-                            <a href="#">교과</a>
+                            교과
                         </span>
                     {% elif post.tag == "데이터" %}
                         <span class="category category-2">
-                            <a href="#">데이터</a>
+                            데이터
                         </span>
                     {% elif post.tag == "프론트" %}
                         <span class="category category-3">
-                            <a href="#">프론트</a>
+                            프론트
                         </span>
                     {% elif post.tag == "백" %}
                         <span class="category category-4">
-                            <a href="#">백</a>
+                            백
                         </span>
                     {% else %}
                         <span class="category category-1">
-                            <a href="#">기타</a>
+                            기타
                         </span>
                     {% endif %}
                     <span class="post-subject">{{ post.title }}</span>
@@ -60,6 +70,9 @@
                 </div>
                 <div class="board-view-buttons">
                     <a href="/post/{{ board }}/list">목록</a>
+                    {% if post.userIdx == request.user %}
+                        <a onclick="delete_post({{ post.id }})">삭제</a>
+                    {% endif %}
                 </div>
             </div> <!-- container -->
         </div> <!-- board-view -->
@@ -86,10 +99,37 @@
                                 <span class="hakbun">{{comment.writerStuNo}}</span>
                                 <span class="name">{{comment.writerName}}</span>
                             </div>
-                            <div class="comment-datetime">{{ comment.writedAt|timesince }} ago</div>
+                            <div class="comment-datetime">{{ comment.writedAt|timesince|time_ego_to_korean }}</div>
                             <div class="comment-content">
                                 {{ comment.content|safe }}
                             </div>
+                            <div class="comment-buttons">
+								<ul>
+									<li>
+										<a href="#" class="comment-reply-button">
+											<i class="far fa-comment-dots"></i>
+											답글쓰기
+										</a>
+									</li>
+                                    {% if comment.userIdx_id == request.user.pk %}
+                                    <li>
+										<a onclick="delete_post({{ comment.id }})" style="cursor: pointer">
+											<i class="far fa-trash-alt"></i>
+											삭제하기
+										</a>
+									</li>
+                                    {% endif %}
+								</ul>
+							</div>
+							<div class="comment-reply">
+								<form action="/post/{{ board }}/comments/{{ comment.id }}/" method="post" class="classic-form">
+									{% csrf_token %}
+                                    <textarea placeholder="댓글을 작성해주세요." name="content"></textarea>
+									<div class="buttons">
+										<button type="submit">작성</button>
+									</div>
+								</form>
+							</div>
                         </li>
                     {% endfor %}
                 </ul>

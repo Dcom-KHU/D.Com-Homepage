@@ -6,7 +6,7 @@
 .board .posts h2 a { color:#434a53; }
 .board .posts h2 a:hover { color:#000; }
 .board .posts .post-subject { vertical-align:middle; }
-.board .posts .category { display:inline-block; vertical-align:middle; width:56px; height:32px; box-sizing:border-box; padding:6px 12px; border-radius:6px; font-size:16px; margin-right:3px; color:#fff; }
+.board .posts .category { display:inline-block; vertical-align:middle; width:56px; height:32px; box-sizing:border-box; padding-top:4.5px; padding-bottom:4.5px; text-align:center; border-radius:6px; font-size:16px; margin-right:3px; color:#fff; }
 .board .posts .category-1 { background-color:#a20f16; }
 .board .posts .category-2 { background-color:#014f99; }
 .board .posts .category-3 { background-color:#ff8a00; }
@@ -16,8 +16,8 @@
 .board .posts .post-content a:hover { color:#000; }
 .board .posts .post-etc:after { display:block; clear:both; visibility:hidden; content:""; }
 .board .posts .post-etc li { float:left; color:#b5b5b5; margin-right:20px; margin-bottom:5px; }
-.board .posts .post-user { margin-bottom:10px; font-size:16px; }
-.board .posts .post-user .hakbun { text-align:center; display:inline-block; width:20px; height:20px; vertical-align:middle; background-color:#ddd; }
+.board .posts .post-user { margin-bottom:10px; font-size:16px; font-weight:300; }
+.board .posts .post-user .hakbun { text-align:center; display:inline-block; width:20px; height:20px; vertical-align:middle; background-color:#ddd; font-size:14px; }
 .board .posts .post-user .name { vertical-align:middle; }
 
 .board .write-button { text-align:right; margin:0 auto; margin-bottom:20px; }

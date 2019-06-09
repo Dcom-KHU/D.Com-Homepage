@@ -22,6 +22,8 @@ from dcomhomepage import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('policy/', views.policy, name='policy'),
+    path('privacy/', views.privacy, name='privacy'),
     path('admin/', admin.site.urls, name='admin'),
     path('board/', include('board.urls'), name='board'),
     path('file/', include('file.urls'), name='file'),

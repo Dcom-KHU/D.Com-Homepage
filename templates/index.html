@@ -1,7 +1,8 @@
 {% extends "base.html" %}
+{% load post_timefilter %}
 
-{% block css %}<link rel="stylesheet" href="/static/css/latest_notice.css">{% endblock %}
-{% block scripts %}<script src="/static/js/latest_notice.js"></script>{% endblock %}
+{% block css %}<link rel="stylesheet" href="/static/css/main.css">{% endblock %}
+{% block scripts %}<script src="/static/js/main.js"></script>{% endblock %}
 
 {% block contents %}
     <div class="content">
@@ -67,61 +68,96 @@
 		<!-- 여기 위까지 header 파일로 분리하면 됩니다. -->
 
 			<!-- /skin/latest/notice/latest.skin.html 파일 내용과 동일 -->
-			<div class="latest-notice">
-				<div class="container">
-					<h2 class="section-header">
-						공지사항 / 활동내역
-					</h2>
-					<div class="latest-notice-list">
-						<ul class="row">
-                            {% for post in posts %}
-                            <li class="col-xs-6 col-sm-4 col-lg-3">
-                                <div class="inner">
-                                    <div class="thumbnail">
-                                        <a href="/post/notice/{{post.id}}"><img src="{{post.imageLink}}"></a>
-                                    </div>
-                                    <div class="list-content">
-                                        {% if post.tag == "공지" %}
-                                            <span class="category category-1">
-                                                <a href="#link-board-notice-view">공지</a>
-                                            </span>
-                                        {% elif post.tag == "행사" %}
-                                            <span class="category category-2">
-                                                <a href="#link-board-notice-view">행사</a>
-                                            </span>
-                                        {% elif post.tag == "대회" %}
-                                            <span class="category category-3">
-                                                <a href="#link-board-notice-view">대회</a>
-                                            </span>
-                                        {% elif post.tag == "프젝" %}
-                                            <span class="category category-4">
-                                                <a href="#link-board-notice-view">프젝</a>
-                                            </span>
-                                        {% else %}
-                                            <span class="category category-1">
-                                                <a href="#link-board-notice-view">기타</a>
-                                            </span>
-                                        {% endif %}
-                                        <span class="title">
-											<a href="/post/notice/{{post.id}}">{{ post.title }}</a>
-										</span>
-                                    </div>
+		<div class="container">
+            <div class="latest-gallery">
+                <h2 class="section-header">
+                    활동내역
+                </h2>
+                <div class="latest-gallery-list">
+                    <ul class="row">
+                        {% for activity in activities %}
+                        <li class="col-xs-6 col-sm-4 col-lg-3">
+                            <div class="inner">
+                                <div class="thumbnail">
+                                    <a href="/post/activity/{{activity.id}}/"><img src="{{activity.imageLink}}"></a>
                                 </div>
-                            </li>
-                            {% endfor %}
-						</ul>
-						<div class="hidden-xs slide slide-left">
-							<button><i class="fas fa-caret-left"></i></button>
-						</div>
-						<div class="hidden-xs slide slide-right">
-							<button><i class="fas fa-caret-right"></i></button>
-						</div>
-					</div> <!-- latest-notice-list -->
-				</div> <!-- container -->
-			</div> <!-- latest-notice -->
-			<!-- /skin/latest/notice/latest.skin.html 파일 내용과 동일 끝 -->
+                                <div class="list-content">
+                                    {% if activity.tag == "공지" %}
+                                        <span class="category category-1">
+                                            <a href="#link-board-notice-view">공지</a>
+                                        </span>
+                                    {% elif activity.tag == "행사" %}
+                                        <span class="category category-2">
+                                            <a href="#link-board-notice-view">행사</a>
+                                        </span>
+                                    {% elif activity.tag == "대회" %}
+                                        <span class="category category-3">
+                                            <a href="#link-board-notice-view">대회</a>
+                                        </span>
+                                    {% elif activity.tag == "프젝" %}
+                                        <span class="category category-4">
+                                            <a href="#link-board-notice-view">프젝</a>
+                                        </span>
+                                    {% else %}
+                                        <span class="category category-1">
+                                            <a href="#link-board-notice-view">기타</a>
+                                        </span>
+                                    {% endif %}
+                                    <span class="title">
+                                        <a href="/post/notice/{{activity.id}}/">{{ activity.title }}</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="hidden-xs slide slide-left">
+                        <button><i class="fas fa-caret-left"></i></button>
+                    </div>
+                    <div class="hidden-xs slide slide-right">
+                        <button><i class="fas fa-caret-right"></i></button>
+                    </div>
+                </div> <!-- latest-gallery-list -->
+            </div> <!-- latest-gallery -->
+            <div class="row">
+                <div class="col-sm-6 latest-board">
+                    <h2 class="section-header">공지사항</h2>
+                    <ul>
+                        {% for notice in notices %}
+                        <li>
+                            <strong>[{{ notice.tag }}]</strong>
+                            <a href="/post/notice/{{ notice.id }}/">{{ notice.title }}</a>
+                            <span class="date">{{ notice.writedAt|timesince|time_ego_to_korean }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div> <!-- latest-board -->
+                <div class="col-sm-6 latest-board">
+                    <h2 class="section-header">정보공유</h2>
+                    <ul>
+                        {% for share in shares %}
+                        <li>
+                            <strong>[{{ notice.tag }}]</strong>
+                            <a href="/post/share/{{ notice.id }}/">{{ share.title }}</a>
+                            <span class="date">{{ share.writedAt|timesince|time_ego_to_korean }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div> <!-- latest-board -->
+            </div> <!-- row -->
+            <div class="latest-board">
+                <h2 class="section-header">자유게시판</h2>
+                <ul>
+                    {% for free in frees %}
+                    <li>
+                        <strong>[{{ notice.tag }}]</strong>
+                        <a href="/post/free/{{ notice.id }}/">{{ free.title }}</a>
+                        <span class="date">{{ free.writedAt|timesince|time_ego_to_korean }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div> <!-- latest-board -->
 
-		<!-- 여기 아래부터 footer 파일로 분리하면 됩니다. -->
-
-		</div> <!-- content -->
+        </div> <!-- container -->
+    </div> <!-- content -->
 {% endblock %}

@@ -1,9 +1,19 @@
 {% extends "base-with-banner.html" %}
+{% load post_timefilter %}
 
 {% block description %}{{ post.summary }}{% endblock %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block css %}<link rel="stylesheet" href="/static/css/board_view.css">{% endblock %}
-
+{% block scripts %}
+    <script src="/static/js/board_view.js"></script>
+    <script>
+        function delete_post(post_id) {
+            if (confirm("정말로 삭제 하시겠습니까?")) {
+                window.location.replace('/post/notice/delete/' + post_id)
+            }
+        }
+    </script>
+{% endblock %}
 {% block boardImg %}'/static/img/signin.jpg'{% endblock %}
 {% block boardTitle %}{{ board_title }}{% endblock %}
 {% block boardSubTitle %}{{ board_subtitle }}{% endblock %}
@@ -15,23 +25,23 @@
                 <h2>
                     {% if post.tag == "공지" %}
                         <span class="category category-1">
-                            <a href="#">공지</a>
+                            공지
                         </span>
                     {% elif post.tag == "행사" %}
                         <span class="category category-2">
-                            <a href="#">행사</a>
+                            행사
                         </span>
                     {% elif post.tag == "대회" %}
                         <span class="category category-3">
-                            <a href="#">대회</a>
+                            대회
                         </span>
-                    {% elif post.tag == "프젝" %}
+                    {% elif post.tag == "공모전" %}
                         <span class="category category-4">
-                            <a href="#">프젝</a>
+                            공모전
                         </span>
                     {% else %}
                         <span class="category category-1">
-                            <a href="#">기타</a>
+                            기타
                         </span>
                     {% endif %}
                     <span class="post-subject">{{ post.title }}</span>
@@ -49,6 +59,9 @@
                 </div>
                 <div class="board-view-buttons">
                     <a href="/post/{{ board }}/list">목록</a>
+                    {% if post.userIdx == request.user %}
+                        <a onclick="delete_post({{ post.id }})">삭제</a>
+                    {% endif %}
                 </div>
             </div> <!-- container -->
         </div> <!-- board-view -->
@@ -58,11 +71,10 @@
                     <strong>{{ comments|length }}</strong>개 댓글
                 </div>
                 <div class="comment-write">
-                    <form action="/post/{{ board }}/comments/{{ post.pk }}/" method="post">
+                    <form action="/post/{{ board }}/comments/{{ post.id }}/" method="post">
                         {% csrf_token %}
                         {{ commentForm.media }}
                         {{ commentForm.content }}
-                        <input type="hidden" name="rootId" value="{{ post.pk }}">
                         <div class="buttons">
                             <button type="submit">작성</button>
                         </div>
@@ -75,10 +87,38 @@
                                 <span class="hakbun">{{comment.writerStuNo}}</span>
                                 <span class="name">{{comment.writerName}}</span>
                             </div>
-                            <div class="comment-datetime">{{ comment.writedAt|timesince }} ago</div>
+                            <div class="comment-datetime">{{ comment.writedAt|timesince|time_ego_to_korean }}</div>
                             <div class="comment-content">
                                 {{ comment.content|safe }}
                             </div>
+                        {{ comment.userIdx }}
+                            <div class="comment-buttons">
+								<ul>
+									<li>
+										<a href="#" class="comment-reply-button">
+											<i class="far fa-comment-dots"></i>
+											답글쓰기
+										</a>
+									</li>
+                                    {% if comment.userIdx_id == request.user.pk %}
+                                    <li style="padding-left: 10px;">
+										<a onclick="delete_post({{ comment.id }})" style="cursor: pointer">
+											<i class="far fa-trash-alt"></i>
+											삭제하기
+										</a>
+									</li>
+                                    {% endif %}
+								</ul>
+							</div>
+							<div class="comment-reply">
+								<form action="/post/{{ board }}/comments/{{ comment.id }}/" method="post" class="classic-form">
+									{% csrf_token %}
+                                    <textarea placeholder="댓글을 작성해주세요." name="content"></textarea>
+									<div class="buttons">
+										<button type="submit">작성</button>
+									</div>
+								</form>
+							</div>
                         </li>
                     {% endfor %}
                 </ul>
